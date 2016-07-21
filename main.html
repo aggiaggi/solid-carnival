@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="main">
+<head>
+  <title>Camera Motion Control</title>
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/site.css" rel="stylesheet" />
+</head>
+<body ng-controller="adminCtrl">
+  <!-- Navigation header -->
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#adminMenu">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/main"
+         ng-click="showMain()">
+        CaMoCo
+      </a>
+      <div class="collapse navbar-collapse" id="adminMenu">
+        <ul class="nav navbar-nav">
+          <li yw-menu-id="DirectControl">
+            <a href="#/directControl" class="h2">Direct Control</a>
+          </li>
+          <li yw-menu-id="Video">
+            <a href="#/video" class="h2">Video</a>
+          </li>
+          <li yw-menu-id="Timelapse">
+            <a href="#/timelapse" class="h2">Time Lapse</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Optional title bar -->
+  <!--div class="current-spot">
+    <div class="container-fluid" ng-show="!isActive('main')">
+      <div class="container">
+        <h3>{{getTitle()}}</h3>
+      </div>
+    </div>
+  </div-->
+
+  <!-- View content -->
+  <div ng-view class="main-content">
+    <!--div class="container-fluid">
+      <div class="container">
+        <div ng-view></div>
+      </div>
+    </div-->
+  </div>
+
+  <script src="jquery-2.1.4.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <script src="angular.min.js"></script>
+  <script src="ngTouch.js"></script>
+  <script src="angular-route.min.js"></script>
+  <script src="modules/core.js"></script>
+  <script src="modules/main.js"></script>
+  <script src="modules/motionControl.js"></script>
+</body>
+</html>

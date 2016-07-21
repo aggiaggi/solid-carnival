@@ -1,0 +1,15 @@
+.current-spot {
+  margin-top: 50px;
+  background-color: #fbbf69;
+}
+
+.current-spot h3 {
+  margin-top: 12px;
+  margin-bottom: 14px;
+}
+
+.main-content {
+  background-color: #eeeeee;
+  padding-top: 100px;
+  padding-bottom: 12px;
+}
