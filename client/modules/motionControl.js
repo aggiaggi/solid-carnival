@@ -5,7 +5,7 @@ angular.module('motionControl', [])
 
 function DirectControlCtrl($scope, $http, currentSpot) {
 	
-	var baseUrl = 'http://arduino.local/';
+	var baseUrl = 'http://arduino.local:3000/';
 	
 	$scope.axes = [{
 				index:'1',
@@ -86,9 +86,9 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 	
 	//Stop command
 	$scope.stop = function(axis) {
-		url = baseUrl + "arduino/" + axis.index + "/stop";
-		console.log(url);
-		$http.get(url);
+		command = axis.index + "/stop";
+		console.log(command);
+		socket.emit("command", command);
 	}
 
 	//Set home command

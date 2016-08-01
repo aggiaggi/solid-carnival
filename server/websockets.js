@@ -15,7 +15,7 @@ var lineReader = readline.createInterface({
 
 console.log("Hello Arduino");			// send an intial message on startup
 
-app.use(express.static('/mnt/sd/arduino/WebApp/client'));
+app.use(express.static('/mnt/sd/arduino/webapp/client'));
 
 var port = 3000;
 

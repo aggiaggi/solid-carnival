@@ -6,6 +6,11 @@
   <link href="css/site.css" rel="stylesheet" />
 </head>
 <body ng-controller="adminCtrl">
+  <!-- Load socket.io scripts for web socket connection to arduino -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+  </script>
   <!-- Navigation header -->
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
