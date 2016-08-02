@@ -10,22 +10,35 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 	$scope.axes = [{
 				index:'1',
 				name: 'Slider',
-				show: true,
+				type: 'linear',
+				unit: 'mm',
+				ratio: '25', //[step/unit], 8 mm per 200 steps
 				accel:'300',
 				decel:'500',
-				dir:'FWD',
-				speed:'200',
-				numberOfSteps:'200'
+				speed:'0',
+				numberOfSteps:'100'
 			},
 			{
 				index:'2',
 				name: 'Pan',
-				show: false,
+				type: 'rotary',
+				unit: 'deg',
+				ratio: '16.666666',
 				accel:'300',
 				decel:'500',
-				dir:'FWD',
-				speed:'200',
-				numberOfSteps:'200'
+				speed:'100',
+				numberOfSteps:'100'
+			},
+			{
+				index:'3',
+				name: 'Tilt',
+				type: 'rotary',
+				unit: 'deg',
+				ratio: '16.666666',
+				accel:'300',
+				decel:'500',
+				speed:'100',
+				numberOfSteps:'100'
 			}
 		];
 
@@ -64,45 +77,46 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 	}
 	
 	//Set speed
-	$scope.setSpeed = function(axis) {
-		url = baseUrl + "arduino/" + axis.index + "/speed/" + axis.speed;
+	//$scope.setSpeed = function(axis) {
+		//url = "run/" + axis.index + "/" + axis.speed;
 		//console.log(url);
 		//$http.get(url);
-	}
+	//}
 	
 	//Move number of steps
 	$scope.move = function(axis) {
-		url = baseUrl + "arduino/" + axis.index + "/move/" + axis.dir + "/" + axis.numberOfSteps;
-		console.log(url);
-		$http.get(url);
+		command = axis.index + "/move/" + axis.dir + "/" + axis.numberOfSteps;
+		console.log(command);
+		socket.emit("command", command);
 	}
 	
 	//Run @speed
 	$scope.run = function(axis) {
-		url = baseUrl + "arduino/" + axis.index + "/run/" + axis.dir + "/" + axis.speed;
-		console.log(url);
-		$http.get(url);
+		command = axis.index + "/run/" + axis.speed;
+		console.log(command);
+		socket.emit("command", command);
 	}
 	
 	//Stop command
 	$scope.stop = function(axis) {
 		command = axis.index + "/stop";
 		console.log(command);
+		axis.speed = 0;
 		socket.emit("command", command);
 	}
 
 	//Set home command
 	$scope.sethome = function(axis) {
-		url = baseUrl + "arduino/" + axis.index + "/sethome";
-		console.log(url);
-		$http.get(url);
+		command = axis.index + "/sethome";
+		console.log(command);
+		socket.emit("command", command);
 	}
 
 	//Go home command
 	$scope.gohome = function(axis) {
-		url = baseUrl + "arduino/" + axis.index + "/gohome";
-		console.log(url);
-		$http.get(url);
+		command = axis.index + "/gohome";
+		console.log(command);
+		socket.emit("command", command);
 	}
 }
 
