@@ -15,8 +15,11 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 				ratio: '25', //[step/unit], 8 mm per 200 steps
 				accel:'300',
 				decel:'500',
-				speed:'0',
-				numberOfSteps:'100'
+				maxSpeed:'600',
+				numberOfSteps:'100',
+				endstopsDisabled: false,
+				pos: 0,
+				commandmode: 'run'
 			},
 			{
 				index:'2',
@@ -26,8 +29,11 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 				ratio: '16.666666',
 				accel:'300',
 				decel:'500',
-				speed:'100',
-				numberOfSteps:'100'
+				maxSpeed:'600',
+				numberOfSteps:'100',
+				endstopsDisabled: false,
+				pos: 0,
+				commandmode: 'run'
 			},
 			{
 				index:'3',
@@ -37,10 +43,14 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 				ratio: '16.666666',
 				accel:'300',
 				decel:'500',
-				speed:'100',
-				numberOfSteps:'100'
+				maxSpeed:'600',
+				numberOfSteps:'100',
+				endstopsDisabled: false,
+				pos: 0,
+				commandmode: 'run'
 			}
 		];
+
 
 	$scope.show = function(axis) {
 		var i;
@@ -53,14 +63,6 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 		console.log($scope.axes[0].show + "/" + $scope.axes[1].show);
 	}
 
-	//Change direction
-	$scope.changeDirection = function(axis) {
-		if (axis.dir == 'FWD')
-			axis.dir = 'REV';
-		else
-			axis.dir = 'FWD';
-		console.log("Direction: " + axis.dir);
-	}
 	
 	//Set acceleration
 	$scope.setAcceleration = function(axis) {
@@ -76,23 +78,16 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 		$http.get(url);
 	}
 	
-	//Set speed
-	//$scope.setSpeed = function(axis) {
-		//url = "run/" + axis.index + "/" + axis.speed;
-		//console.log(url);
-		//$http.get(url);
-	//}
-	
 	//Move number of steps
-	$scope.move = function(axis) {
-		command = axis.index + "/move/" + axis.dir + "/" + axis.numberOfSteps;
+	$scope.move = function(axis,dir,steps) {
+		command = axis.index + "/move/" + dir + "/" + steps;
 		console.log(command);
 		socket.emit("command", command);
 	}
 	
 	//Run @speed
-	$scope.run = function(axis) {
-		command = axis.index + "/run/" + axis.speed;
+	$scope.run = function(axis,speed) {
+		command = axis.index + "/run/" + speed;
 		console.log(command);
 		socket.emit("command", command);
 	}
@@ -101,7 +96,7 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 	$scope.stop = function(axis) {
 		command = axis.index + "/stop";
 		console.log(command);
-		axis.speed = 0;
+		//axis.speed = 0;
 		socket.emit("command", command);
 	}
 
@@ -118,6 +113,48 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 		console.log(command);
 		socket.emit("command", command);
 	}
+	
+	//Command mode
+	$scope.commandmode = function(axis,mode) {
+		console.log(mode);
+		if(mode == "move"){
+			console.log("Move Mode");
+			axis.commandmode = "move";
+			$("#move"+axis.index).addClass("btn-success");
+			$("#run"+axis.index).removeClass("btn-success");
+			$("#run"+axis.index).addClass("btn-default");
+			$("#go"+axis.index).removeClass("btn-success");
+			$("#go"+axis.index).addClass("btn-default");
+		} else if(mode == "run") {
+			console.log("Run Mode");
+			axis.commandmode = "run";
+			$("#run"+axis.index).addClass("btn-success");
+			$("#move"+axis.index).removeClass("btn-success");
+			$("#move"+axis.index).addClass("btn-default");
+			$("#go"+axis.index).removeClass("btn-success");
+			$("#go"+axis.index).addClass("btn-default");
+		} else if(mode == "go") {
+			console.log("Go Mode");
+			axis.commandmode = "go";
+			$("#go"+axis.index).addClass("btn-success");
+			$("#move"+axis.index).removeClass("btn-success");
+			$("#move"+axis.index).addClass("btn-default");
+			$("#run"+axis.index).removeClass("btn-success");
+			$("#run"+axis.index).addClass("btn-default");
+		}
+			
+	}
+
+
+
+	//Websocket communication with server
+	socket.on('position', function(data) {
+		//console.log(data);
+		var dataobj = JSON.parse(data.trim());
+      	$scope.axes[0].pos = dataobj.pos1;
+      	$scope.$apply();
+    })
+
 }
 
 function VideoCtrl(currentSpot) {

@@ -41,5 +41,5 @@ http.listen(port, function(){
 // when you get a newline in the stdin (ends with \n),
 // send a reply out the stdout:
 lineReader.on('line', function (data) {
-  io.emit('position', parseInt(data));
+  io.emit('position', data);
 });
