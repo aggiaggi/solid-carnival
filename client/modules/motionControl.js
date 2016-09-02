@@ -149,9 +149,12 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 
 	//Websocket communication with server
 	socket.on('position', function(data) {
-		//console.log(data);
-		var dataobj = JSON.parse(data.trim());
+		console.log(data);
+		data.trim();
+		var dataobj = JSON.parse(data);
       	$scope.axes[0].pos = dataobj.pos1;
+		$scope.axes[1].pos = dataobj.pos2;
+		$scope.axes[2].pos = dataobj.pos3;
       	$scope.$apply();
     })
 
