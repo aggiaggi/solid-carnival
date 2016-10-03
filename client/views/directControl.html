@@ -43,80 +43,84 @@
 	</div-->
 	<!-- Speed / Steps -->
 	<div class="row">
-		
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						{{axis.name}} / Speed [steps/s] {{axis.speed}} / Position: {{axis.pos}}
-					</h4>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-xs-1">
-							<button type="button" class="btn btn-danger" ng-click="stop(axis)">
-								<span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
-							</button>
-						</div>
-						<div class="col-xs-2">
-							<div class="btn-group" role="group">
-								<button type="button" class="btn btn-default" ng-click="run(axis,-1*axis.maxSpeed)">
-									<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default" ng-click="move(axis,'REV',100)">
-									<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-								</button>
-							</div>
-						</div>
-						<div class="col-xs-7">
-							<input style="width: 100%; height: 100%" type="range" name="speed" min="-1200" max="1200" ng-model="axis.slider"/>
-						</div>
-						<div class="col-xs-2">
-							<div class="btn-group" role="group">
-								<button type="button" class="btn btn-default" ng-click="move(axis,'FWD',100)">
-									<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default" ng-click="run(axis,axis.maxSpeed)">
-									<span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
-								</button>
-							</div>
-						</div>
-					</div>	
-					<div class="row">
-						<!--  Empty Space -->
-						<div class="col-xs-3">
-							
-						</div>
-						<!-- Command Mode -->
-						<div class="col-xs-3">
-							<div class="btn-group" role="group">
-								<button id="move{{axis.index}}" type="button" class="btn btn-default" ng-click="commandmode(axis,'move')">D</button>
-								<button id="run{{axis.index}}" type="button" class="btn btn-success" ng-click="commandmode(axis,'run')">S</button>
-								<button id="go{{axis.index}}"  type="button" class="btn btn-default" ng-click="commandmode(axis,'go')">P</button>
-							</div>
-						</div>
-						<!-- Endstops / Home -->
-						<div class="col-xs-3">
-							<div class="btn-group" role="group">
-								<button ng-disabled="axis.endstopsDisabled" type="button" class="btn btn-default" ng-click="goleftstop(axis)">
-									<span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default" ng-click="gohome(axis)">
-									<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-								</button>
-								<button ng-disabled="axis.endstopsDisabled" type="button" class="btn btn-default" ng-click="gorightstop(axis)">
-									<span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
-								</button>
-							</div>
-						</div>
-						<!--  Empty Space -->
-						<div class="col-xs-2">
-							
-						</div>
-						
-					</div>
-				</div>
-				
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					{{axis.name}} / Speed [steps/s] {{axis.speed}} / Position: {{axis.pos}}
+				</h4>
 			</div>
+			<div class="panel-body">
+				<div class="row">
+                    <div class="col-xs-1">
+                        <button id="softstop{{axis.index}}" type="button" class="btn btn-default btn-sm" ng-click="">
+                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                        </button>
+                    </div>
+					<!-- Slider -->
+					<div class="col-xs-10">   
+                        <input type="range" name="speed" min="-1200" max="1200" ng-model="axis.slider" />
+					</div>
+                    <div class="col-xs-1">
+                        <button id="softstopright{{axis.index}}" type="button" class="btn btn-default btn-sm" ng-click="">
+                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                        </button>
+                    </div>
+				</div>	
+				<div class="row">
+					<div class="col-xs-12">
+                        <!-- Home -->
+                        <div class="btn-group" role="group" style="margin-right:10pt">
+                            <button type="button" class="btn btn-default" ng-click="gohome(axis)">
+                                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <!-- Command Mode -->
+						<div class="btn-group" role="group" style="margin-right:10pt">
+							<button id="move{{axis.index}}" type="button" class="btn btn-default" ng-click="commandmode(axis,'move')">D</button>
+							<button id="run{{axis.index}}" type="button" class="btn btn-success" ng-click="commandmode(axis,'run')">S</button>
+							<button id="go{{axis.index}}"  type="button" class="btn btn-default" ng-click="commandmode(axis,'go')">P</button>
+						</div>
+
+					    <!--Stop/nudge/run-->
+                        <div class="btn-group" role="group">
+                            <button ng-disabled="axis.endstopsDisabled" type="button" class="btn btn-default" ng-click="goleftstop(axis)">
+                                <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="run(axis,-1*axis.maxSpeed)">
+                                <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="move(axis,'REV',100)">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-danger" ng-click="stop(axis)">
+                                <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" ng-click="move(axis,'FWD',100)">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="run(axis,axis.maxSpeed)">
+                                <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+                            </button>
+                            <button ng-disabled="axis.endstopsDisabled" type="button" class="btn btn-default" ng-click="gorightstop(axis)">
+                                <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    
+
+					</div>
+					<!--  Empty Space -->
+					<div class="col-xs-2">
+							
+					</div>
+						
+				</div>
+			</div>
+				
+		</div>
 		
 	</div>
 	

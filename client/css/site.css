@@ -10,7 +10,7 @@
 
 .main-content {
   background-color: #eeeeee;
-  padding-top: 100px;
+  padding-top: 0px;
   padding-bottom: 12px;
 }
 
@@ -26,6 +26,7 @@ input[type=range]::-webkit-slider-runnable-track {
   cursor: pointer;
   /*border-radius: 1.3px;*/
   border: 1px solid #010101;
+  margin-bottom:5pt;
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -36,7 +37,11 @@ input[type=range]::-webkit-slider-thumb {
   background: #ffffff;
   cursor: pointer;
   -webkit-appearance: none;
-  margin-top: -14px;
+  margin-top: -16px;
+}
+
+.panel {
+    margin:0pt;
 }
 
 
