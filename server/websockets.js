@@ -8,14 +8,7 @@ var io = require('socket.io')(http);
 
 var SerialPort = require("serialport").SerialPort
 var serialPort;
-/*= new SerialPort(serial_port, {
-    baudrate: 400000,
-    dataBits: 8,
-    parity: 'none',
-    stopBits: 1,
-    flowControl: false
-}, false); //autoOpen = false
-*/
+
 app.use(express.static('/webapp/client'));
 
 
@@ -61,16 +54,13 @@ io.on('error', function(err){
 //----------------------
 
 //Open serial port
-openSerialPort(20,2000);
+openSerialPort(2000);
 
 //Recusrsive function that tries to open serial port
-//attempts: number of retries
 //waittime: delay between attempts 
-function openSerialPort(attempts, waittime) {
-	console.log(attempts + ' attempts remaining');
-	console.log('Waiting for ' + waittime + ' ms');
-	sleep(waittime);
-	console.log('Trying to reopen Serial port');
+function openSerialPort(waittime) {
+	
+	console.log('Trying to open Serial port');
 	
 	serialPort = new SerialPort(serial_port, {
 	    baudrate: 400000,
@@ -83,13 +73,15 @@ function openSerialPort(attempts, waittime) {
 	serialPort.open(function (err){
 		if (err) {
 			console.log("Serial port failed to open: " + err);
-			openSerialPort(attempts-1, waittime);
+			console.log('Waiting for ' + waittime + ' ms');
+			sleep(waittime);
+			openSerialPort(waittime);
 		}
 	});
 	
 	//Handle serial port "open" event after successful connection
 	serialPort.on("open", function () {
-	    console.log("Serial port" + serial_port + " open");
+	    console.log("Serial port" + serial_port + " open!");
 	
 		// send an intial message to MCU on startup
 		serialPort.write("Websocket server connected via the serial port " + serial_port);			
@@ -121,7 +113,7 @@ function openSerialPort(attempts, waittime) {
 	//Handle the serial port "close" event
 	serialPort.on('close', function() {
 	    console.log('Serial port closed');
-		openSerialPort(20, 2000);
+		openSerialPort(2000);
 	});
 
 	//Handle serial port "error" event
