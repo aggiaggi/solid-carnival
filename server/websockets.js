@@ -1,12 +1,12 @@
 var socket_port = 3000;	//port for io.socket
 var serial_port = "/dev/ttySAMD"; //serial port
 
-var express = require('express');
+var express = require('/usr/lib/node_modules/express');
 var app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var io = require('/usr/lib/node_modules/socket.io')(http);
 
-var SerialPort = require("serialport").SerialPort
+var SerialPort = require("/usr/lib/node_modules/serialport").SerialPort
 var serialPort;
 
 app.use(express.static('/webapp/client'));
