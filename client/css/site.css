@@ -41,8 +41,29 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .panel {
-    margin:0pt;
+    margin-top:5pt;
+    margin-bottom: 0pt;
 }
 
+/* The animation code */
+@keyframes RECAnimation {
+    50%  {background-color: red;}
+    99%  {background-color: red;}
+}
 
+/* Programming State REC */
+.REC {
+   /* animation-name: RECAnimation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+       */
+   background-color: green;
+}
 
+/* Programming State DEL */
+.DEL {
+    background-color: red;
+    /*animation-name: RECAnimation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;*/
+}

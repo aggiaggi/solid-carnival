@@ -14,12 +14,18 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 				unit: 'mm',
 				ratio: '25', //[step/unit], 8 mm per 200 steps
 				accel:'300',
-				decel:'500',
+				decel: '500',
+                speed: 300,
 				maxSpeed:'600',
 				numberOfSteps:'100',
-				endstopsDisabled: false,
+				startSoftStopsEnabled: false,
+				endSoftStopsEnabled: false,
+				startSoftStop: 0,
+				endSoftStop: 0,
 				pos: 0,
-				commandmode: 'run'
+                commandedPos: 0,
+                commandmode: 'run',
+                programmingState: "OFF"
 			},
 			{
 				index:'2',
@@ -28,12 +34,18 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 				unit: 'deg',
 				ratio: '16.666666',
 				accel:'300',
-				decel:'500',
+				decel: '500',
+				speed: 300,
 				maxSpeed:'600',
 				numberOfSteps:'100',
-				endstopsDisabled: false,
+				startSoftStopsEnabled: false,
+				endSoftStopsEnabled: false,
+				startSoftStop: 0,
+				endSoftStop: 0,
 				pos: 0,
-				commandmode: 'run'
+				commandedPos: 0,
+				commandmode: 'run',
+				programmingState: "OFF"
 			},
 			{
 				index:'3',
@@ -42,12 +54,18 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 				unit: 'deg',
 				ratio: '16.666666',
 				accel:'300',
-				decel:'500',
+				decel: '500',
+				speed: 300,
 				maxSpeed:'600',
 				numberOfSteps:'100',
-				endstopsDisabled: false,
+				startSoftStopsEnabled: false,
+				endSoftStopsEnabled: false,
+				startSoftStop: 0,
+				endSoftStop: 0,
 				pos: 0,
-				commandmode: 'run'
+				commandedPos: 0,
+				commandmode: 'run',
+				programmingState: "OFF"
 			}
 		];
 
@@ -91,6 +109,13 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 		console.log(command);
 		socket.emit("command", command);
 	}
+
+    //Go to position
+	$scope.go = function (axis, pos) {
+	    command = axis.index + "/go/" + pos;
+	    console.log(command);
+	    socket.emit("command", command);
+	}
 	
 	//Stop command
 	$scope.stop = function(axis) {
@@ -100,24 +125,24 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 		socket.emit("command", command);
 	}
 
-	//Set home command
-	$scope.sethome = function(axis) {
-		command = axis.index + "/sethome";
-		console.log(command);
-		socket.emit("command", command);
-	}
+	// Home button
+	$scope.home = function (axis) {
+	    if(axis.programmingState == "OFF") {
+	        command = axis.index + "/gohome";
+	        console.log(command);
+	        socket.emit("command", command);
+	    } else if (axis.programmingState == "REC") {
+	        command = axis.index + "/sethome";
+	        console.log(command);
+	        socket.emit("command", command);
+	    }
 
-	//Go home command
-	$scope.gohome = function(axis) {
-		command = axis.index + "/gohome";
-		console.log(command);
-		socket.emit("command", command);
 	}
 	
 	//Command mode
 	$scope.commandmode = function(axis,mode) {
 		console.log(mode);
-		if(mode == "move"){
+		/*if(mode == "move"){
 			console.log("Move Mode");
 			axis.commandmode = "move";
 			$("#move"+axis.index).addClass("btn-success");
@@ -125,7 +150,8 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 			$("#run"+axis.index).addClass("btn-default");
 			$("#go"+axis.index).removeClass("btn-success");
 			$("#go"+axis.index).addClass("btn-default");
-		} else if(mode == "run") {
+		} else*/
+		if (mode == "run") {
 			console.log("Run Mode");
 			axis.commandmode = "run";
 			$("#run"+axis.index).addClass("btn-success");
@@ -145,6 +171,73 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 			
 	}
 
+	$scope.recordToggle = function (axis) {
+        console.log("toggle recording!")
+	    if (axis.programmingState == "OFF") {
+	        axis.programmingState = "REC";
+            $("#record" + axis.index).addClass("REC");
+            $("#startsoftstop" + axis.index).addClass("REC");
+            $("#endsoftstop" + axis.index).addClass("REC");
+            $("#home" + axis.index).addClass("REC");
+	    }
+	    else {
+	        axis.programmingState = "OFF";
+	        $("#record" + axis.index).removeClass("REC");
+	        $("#startsoftstop" + axis.index).removeClass("REC");
+	        $("#endsoftstop" + axis.index).removeClass("REC");
+            $("#home" +axis.index).removeClass("REC");
+        }
+	}
+
+	$scope.deleteToggle = function (axis) {
+	    console.log("toggle delete!")
+	    if (axis.programmingState == "OFF") {
+	        axis.programmingState = "DEL";
+	        $("#delete" + axis.index).addClass("DEL");
+	        $("#startsoftstop" + axis.index).addClass("DEL");
+	        $("#endsoftstop" + axis.index).addClass("DEL");
+	    }
+	    else {
+	        axis.programmingState = "OFF";
+	        $("#delete" + axis.index).removeClass("DEL");
+	        $("#startsoftstop" + axis.index).removeClass("DEL");
+	        $("#endsoftstop" + axis.index).removeClass("DEL");
+	    }
+	}
+
+    //Stops
+	$scope.startSoftStopClicked = function (axis) {
+	    if (axis.programmingState == "OFF") {
+	        command = axis.index + "/gostartsoftstop";
+	        execute(command);
+	    } else if (axis.programmingState == "REC") {
+	        command = axis.index + "/markstartsoftstop";
+	        execute(command);
+	        axis.startSoftStop = axis.pos;
+	    } else if (axis.programmingState == "DEL") {
+	        command = axis.index + "/deletestartsoftstop";
+	        execute(command);
+	        axis.startSoftStop = 0;
+	    }
+	}
+
+	$scope.endSoftStopClicked = function (axis) {
+	    if (axis.programmingState == "OFF") {
+	        command = axis.index + "/goendsoftstop";
+	        execute(command);
+	    } else if (axis.programmingState == "REC") {
+	        command = axis.index + "/markendsoftstop";
+	        execute(command);
+	        axis.endSoftStop = axis.pos;
+	    }
+	    else if (axis.programmingState == "DEL") {
+	        command = axis.index + "/deleteendsoftstop";
+	        execute(command);
+	        axis.endSoftStop = 0;
+	    }
+	}
+
+
 
 
 	//Websocket communication with server
@@ -159,6 +252,12 @@ function DirectControlCtrl($scope, $http, currentSpot) {
     })
 
 }
+
+function execute(command) {
+	console.log(command);
+	socket.emit("command", command);
+}
+
 
 function VideoCtrl(currentSpot) {
 }
