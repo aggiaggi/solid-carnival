@@ -36,9 +36,10 @@
                             <input type="range" name="position"
                                    ng-disabled="((axis.startSoftStop == 0) || (axis.endSoftStop == 0))"
                                    min="{{axis.startSoftStop}}" max="{{axis.endSoftStop}}" 
-                                   ng-show="axis.commandmode=='go'" ng-model="axis.commandedPosition" 
-                                   ng-mouseup="go(axis, axis.commandedPosition)"
-                                   ng-click="go(axis, axis.commandedPosition)" />
+                                   ng-show="axis.commandmode=='go'" 
+                                   ng-model="axis.commandedPos" 
+                                   ng-mouseup="go(axis, axis.commandedPos)"
+                                   ng-click="go(axis, axis.commandedPos)" />
                         </div>
                     </div>
                     <!-- 2. row -->

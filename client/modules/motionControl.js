@@ -131,6 +131,7 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 	        command = axis.index + "/gohome";
 	        console.log(command);
 	        socket.emit("command", command);
+	        axis.commandedPos = 0;
 	    } else if (axis.programmingState == "REC") {
 	        command = axis.index + "/sethome";
 	        console.log(command);
@@ -160,8 +161,9 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 			$("#go"+axis.index).removeClass("btn-success");
 			$("#go"+axis.index).addClass("btn-default");
 		} else if(mode == "go") {
-			console.log("Go Mode");
-			axis.commandmode = "go";
+		    console.log("Go Mode");
+		    axis.commandmode = "go";
+		    axis.commandedPos = axis.pos;
 			$("#go"+axis.index).addClass("btn-success");
 			$("#move"+axis.index).removeClass("btn-success");
 			$("#move"+axis.index).addClass("btn-default");
@@ -210,14 +212,15 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 	    if (axis.programmingState == "OFF") {
 	        command = axis.index + "/gostartsoftstop";
 	        execute(command);
+	        axis.commandedPos = axis.startSoftStop;
 	    } else if (axis.programmingState == "REC") {
 	        command = axis.index + "/markstartsoftstop";
 	        execute(command);
-	        axis.startSoftStop = axis.pos;
+	        //axis.startSoftStop = axis.pos;
 	    } else if (axis.programmingState == "DEL") {
 	        command = axis.index + "/deletestartsoftstop";
 	        execute(command);
-	        axis.startSoftStop = 0;
+	        //axis.startSoftStop = 0;
 	    }
 	}
 
@@ -225,6 +228,7 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 	    if (axis.programmingState == "OFF") {
 	        command = axis.index + "/goendsoftstop";
 	        execute(command);
+	        axis.commandedPos = axis.endSoftStop;
 	    } else if (axis.programmingState == "REC") {
 	        command = axis.index + "/markendsoftstop";
 	        execute(command);
@@ -245,9 +249,12 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 		console.log(data);
 		data.trim();
 		var dataobj = JSON.parse(data);
-      	$scope.axes[0].pos = dataobj.pos1;
-		$scope.axes[1].pos = dataobj.pos2;
-		$scope.axes[2].pos = dataobj.pos3;
+		$scope.axes[0].pos = dataobj.axis1.pos;
+		$scope.axes[0].startSoftStop = dataobj.axis1.stop1;
+		$scope.axes[0].endSoftStop = dataobj.axis1.stop2;
+
+		$scope.axes[1].pos = dataobj.axis2.pos;
+		$scope.axes[2].pos = dataobj.axis3.pos;
       	$scope.$apply();
     })
 
