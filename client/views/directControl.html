@@ -37,8 +37,8 @@
                                    ng-disabled="((axis.startSoftStop == 0) || (axis.endSoftStop == 0))"
                                    min="{{axis.startSoftStop}}" max="{{axis.endSoftStop}}" 
                                    ng-show="axis.commandmode=='go'" 
-                                   ng-model="axis.commandedPos" 
-                                   ng-mouseup="go(axis, axis.commandedPos)"
+                                   ng-model="axis.commandedPos"
+                                   ng-touchend="go(axis, axis.commandedPos)"
                                    ng-click="go(axis, axis.commandedPos)" />
                         </div>
                     </div>
