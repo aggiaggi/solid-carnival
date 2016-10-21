@@ -4,9 +4,16 @@ angular.module('motionControl', [])
   .controller('timelapseCtrl', TimelapseCtrl);
 
 function DirectControlCtrl($scope, $http, currentSpot) {
-	
+
 	var baseUrl = 'http://arduino.local:3000/';
-	
+
+    //Initialisation of controller
+	$scope.init = function () {
+	    $scope.timeline.setup($("#timeline").width());
+	}
+
+	$scope.mouseDown = false;
+
 	$scope.axes = [{
 				index:'1',
 				name: 'Slider',
@@ -69,6 +76,66 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 			}
 		];
 
+	$scope.timeline = {
+        currentFrame: 50,
+        frames: 100,
+        height: 50,
+        zoomLevel: .5,
+        minSpacing: 20,
+        spacingBase: [1, 2, 5],
+        spacingBaseSelector: 0,
+        spacingMultiplier: 1,
+        grid: [],
+        setup: function (timelineWidth) {
+            console.log("Setup timeline");
+
+            //Determine range of frames
+            var range = this.frames * this.zoomLevel;
+
+            //Calculate left frame
+            var leftFrame = Math.round(this.currentFrame - 0.5 * range);
+
+            if (leftFrame < 1)
+                leftFrame = 1;
+
+            //Calculate left frame
+            var rightFrame = Math.round(this.currentFrame + 0.5 * range);
+
+            if (rightFrame > this.frames)
+                rightFrame = this.frames;
+
+            //Calculate spacing
+            //var spacing = Math.floor(timelineWidth / range) / this.spacingBase[this.spacingBaseSelector] * this.spacingMultiplier;
+            var spacing = 0;
+            var baseSpacing = Math.floor(timelineWidth / range);
+
+            while (baseSpacing * this.spacingBase[this.spacingBaseSelector] * this.spacingMultiplier < this.minSpacing) {
+                if (this.spacingBaseSelector < this.spacingBase.length) {
+                    this.spacingBaseSelector++
+                }
+                else {
+                    this.spacingBaseSelector = 0;
+                    this.spacingMultiplier++;
+                }
+                
+            }
+            spacing = baseSpacing * this.spacingBase[this.spacingBaseSelector] * this.spacingMultiplier;
+            console.log("Spacing: " + spacing);
+
+            //number of additional lines required to completely fill up timeline
+            range = range / (this.spacingBase[this.spacingBaseSelector] * this.spacingMultiplier);
+            var res = Math.floor(timelineWidth / (range * spacing));
+            
+            //Create timeline grid in array
+            for (i = 0; i < (range + res) ; i++) {
+                this.grid.push(i * spacing);
+            }
+
+           
+
+            console.log(this);
+        }
+	}
 
 	$scope.show = function(axis) {
 		var i;
@@ -241,7 +308,62 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 	    }
 	}
 
+	$scope.radius = function () {
+	    return 20;
+	}
 
+	$scope.width = function () {
+	    return $("#timeline").width();
+	   // return 1000;
+	}
+
+	$scope.onMouseDownTimeline = function (subEvent) {
+	    $scope.mouseDown = true;
+	    var mainEvent = subEvent ? subEvent : window.event;
+
+	    //http://api.jquery.com/category/css/
+	    var offset = $("#timeline").offset().left;
+	    var mouseX = mainEvent.clientX;
+	    $scope.timeline.currentFrame = mouseX - offset;
+	    //console.log("Timeline click");
+
+	    //alert("Offset: " + offset);
+	    //alert("This button click occurred at: X(" +
+        //mainEvent.clientX + ") and Y(" + mainEvent.clientY + ")");
+	}
+
+	$scope.onMouseMoveTimeline = function (subEvent) {
+	   
+
+	    if ($scope.mouseDown) {
+	        var mainEvent = subEvent ? subEvent : window.event;
+	        var offset = $("#timeline").offset().left;
+	        var mouseX = mainEvent.clientX;
+	        $scope.timeline.currentFrame = mouseX - offset;
+	    }
+	   
+	}
+
+	$scope.onClickCursor = function (subEvent) {
+	    //console.log("Cursor Click");
+	}
+
+
+
+	$scope.onMouseDownCursor = function (subEvent) {
+	    //console.log("Cursor Mouse Down");
+	    $scope.mouseDown = true;
+	}
+
+	$scope.onMouseUpCursor = function (subEvent) {
+	    //console.log("Cursor Mouse Up");
+	    $scope.mouseDown = false;
+	}
+
+	$scope.onMouseLeaveTimeline = function (subEvent) {
+	    $scope.mouseDown = false;
+	    //console.log("Timeline mouse leave");
+	}
 
 
 	//Websocket communication with server
@@ -256,7 +378,9 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 		$scope.axes[1].pos = dataobj.axis2.pos;
 		$scope.axes[2].pos = dataobj.axis3.pos;
       	$scope.$apply();
-    })
+	})
+
+
 
 }
 
@@ -277,3 +401,6 @@ function extend(obj) {
 	E.prototype = obj;
 	return new E();
 }
+
+
+

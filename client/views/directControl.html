@@ -1,4 +1,12 @@
-<div yw-active-menu="DirectControl" yw-active-title="Direct Control of Axis Movement" class="container-fluid">
+<div id="root" 
+     yw-active-menu="DirectControl" 
+     yw-active-title="Direct Control of Axis Movement" 
+     class="container-fluid"
+     ng-mousedown="onMouseDownRoot(event)"
+     ng-mouseup="onMouseUpRoot(event)"
+     ng-mouseleave="onMouseLeaveRoot(event)"
+     ng-init="init()"
+     >
     <!--div class="container">
       <div class="btn-group" ng-repeat="axis in axes">
         <button type="button" class="btn btn-primary" ng-click="show(axis)">{{axis.name}}</button>
@@ -7,11 +15,13 @@
     <!-- Nav pill menu -->
     <!--ul class="nav nav-pills" ng-repeat="axis in axes">
       <li><a data-toggle="pill" href="#menu{{axis.index}}" ng-click="show(axis)">{{axis.name}}</a></li>
-    </ul--!>
+    </ul-->
+    
 
+    
     <!-- Axis controls -->
-    <div class="container" ng-repeat="axis in axes">
-        <div class="row">
+    <div class="container">
+        <div class="row" ng-repeat="axis in axes">
             <div class="panel panel-default">
                 <!-- Axis Panel Heading -->
                 <div class="panel-heading">
@@ -121,18 +131,45 @@
 
                     </div>
                 </div>
-
             </div>
-
         </div>
+    </div>
 
+    <!-- Timeline -->
+    <div id="timeline" class="container"
+         ng-mouseleave="onMouseLeaveTimeline(event)">
 
+        <div  class="row">
+            
+                <svg ng-attr-width="{{width()}}">
+                    <!-- Main timeline window -->
+                    <rect height="{{timeline.height}}" ng-attr-width="{{width()}}" 
+                          style="fill:#aaaaaa;stroke:#000000;stroke-width:1;stroke-opacity:1" 
+                          ng-mousedown="onMouseDownTimeline(event)"
+                          ng-mousemove="onMouseMoveTimeline(event)"
+                          
+                          />
+                    <!-- Text area -->
+                    <rect height="20" ng-attr-y="{{timeline.height}}" ng-attr-width="{{width()}}"
+                          style="fill:#dddddd;stroke:#000000;stroke-width:1;stroke-opacity:1"/>
+                   
+                    <!-- Timeline grid ticks -->
+                    <g id="ticks">
+                        <line ng-repeat="line in timeline.grid"
+                              x1="{{line}}" x2="{{line}}" y1="0" y2="{{timeline.height}}"
+                              style="stroke:#888888;stroke-width: 1" />
+                    </g>
 
-        <!-- Status -->
-        <!--div class="row">
-                <svg>
-                    <circle ng-attr-cx="{{accel}}" cy="100" r="50"/>
+                    <!-- Cursor-->
+                    <line x1="{{timeline.currentFrame}}" y1="0" x2="{{timeline.currentFrame}}" y2="{{timeline.height}}" 
+                          style="stroke:#FF0000;stroke-width:10;opacity: 0.5" 
+                          ng-mousemove="onMouseMoveTimeline(event)"
+                          ng-mousedown="onMouseDownCursor(event)"
+                          ng-mouseup="onMouseUpCursor(event)"
+                          ng-click="onClickCursor(event)"/>
+                    
                 </svg>
-        </div-->
+            
+        </div>
     </div>
 </div>
