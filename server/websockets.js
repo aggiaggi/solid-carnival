@@ -6,10 +6,12 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('/usr/lib/node_modules/socket.io')(http);
 
-var SerialPort = require("/usr/lib/node_modules/serialport").SerialPort
+//var SerialPort = require("/usr/lib/node_modules/serialport").SerialPort
+var SerialPort = require("/usr/lib/node_modules/serialport");
 var serialPort;
 
-app.use(express.static('/webapp/client'));
+//app.use(express.static('/webapp/client'));
+app.use(express.static('/webapp-ng2/webapp/client/src'));
 
 
 // ---------------------
@@ -63,12 +65,13 @@ function openSerialPort(waittime) {
 	console.log('Trying to open Serial port');
 	
 	serialPort = new SerialPort(serial_port, {
+		autoOpen: false,
 	    baudrate: 400000,
 	    dataBits: 8,
 	    parity: 'none',
 	    stopBits: 1,
 	    flowControl: false
-	}, false);
+	}, function(){});
 	
 	serialPort.open(function (err){
 		if (err) {

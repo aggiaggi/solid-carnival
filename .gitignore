@@ -1,1 +1,7 @@
-server/listserialports.js
+client/src/**/*.js
+client/old
+client/src/node_modules
+!client/src/systemjs.config.extras.js
+!client/src/systemjs.config.js
+!client/src/systemjs-angular-loader.js
+*.js.map
