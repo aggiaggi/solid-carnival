@@ -376,7 +376,13 @@ function DirectControlCtrl($scope, $http, currentSpot) {
 		$scope.axes[0].endSoftStop = dataobj.axis1.stop2;
 
 		$scope.axes[1].pos = dataobj.axis2.pos;
+		$scope.axes[1].startSoftStop = dataobj.axis2.stop1;
+		$scope.axes[1].endSoftStop = dataobj.axis2.stop2;
+
 		$scope.axes[2].pos = dataobj.axis3.pos;
+		$scope.axes[2].startSoftStop = dataobj.axis3.stop1;
+		$scope.axes[2].endSoftStop = dataobj.axis3.stop2;
+
       	$scope.$apply();
 	})
 
