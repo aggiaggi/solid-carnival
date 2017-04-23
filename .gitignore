@@ -4,4 +4,7 @@ client/src/node_modules
 !client/src/systemjs.config.extras.js
 !client/src/systemjs.config.js
 !client/src/systemjs-angular-loader.js
+!client/src/shim.min.js
+!client/src/zone.js
+!client/src/system.src.js
 *.js.map
