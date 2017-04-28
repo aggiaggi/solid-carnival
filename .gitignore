@@ -1,6 +1,5 @@
 client/src/**/*.js
 client/old
-client/src/node_modules
 !client/src/systemjs.config.extras.js
 !client/src/systemjs.config.js
 !client/src/systemjs-angular-loader.js
@@ -8,3 +7,11 @@ client/src/node_modules
 !client/src/zone.js
 !client/src/system.src.js
 *.js.map
+.idea
+node_modules
+jspm_packages
+npm-debug.log
+debug.log
+client/e2e/**/*.js
+client/e2e/**/*.js.map
+.vscode

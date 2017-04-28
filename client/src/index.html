@@ -8,12 +8,19 @@
     <link rel="stylesheet" href="styles.css">
 
     <!-- Polyfill(s) for older browsers -->
-    <script src="shim.min.js"></script>
+    <script src="node_modules/core-js/client/shim.min.js"></script>
 
-    <script src="zone.js"></script>
-    <script src="system.src.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
 
     <script src="systemjs.config.js"></script>
+  
+    <!-- Establish websocket connection with server -->
+    <!--script src="/socket.io/socket.io.js"></script-->
+    <!--script>
+        var socket = io();
+    </script-->
+    
     <script>
       System.import('main.js').catch(function(err){ console.error(err); });
     </script>
