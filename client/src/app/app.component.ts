@@ -1,23 +1,20 @@
 import { Component } from '@angular/core';
-import { AxisService} from './axis.service';
+import { AxisService } from './axis.service';
 import { OnInit } from '@angular/core';
+import { AxisComponent } from './axis/axis.component';
 
 @Component({
   selector: 'my-app',
-  template: `<h1>Hello {{name}}</h1>`,
+  templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit  { 
-  name = 'Angular';
-  
+export class AppComponent implements OnInit {
+  name = 'Camera Motion Control App';
+
   constructor(private axisService: AxisService) { }
 
   ngOnInit(): void {
-    this.getPosition();
+
   }
 
-  getPosition(): void {
-    this.axisService.getAxisPosition(function(data: string){
-      console.log(data);
-    });
-  }
+
 }

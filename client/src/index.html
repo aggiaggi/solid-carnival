@@ -5,7 +5,8 @@
     <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="app.css" rel="stylesheet" />
 
     <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
@@ -14,12 +15,6 @@
     <script src="node_modules/systemjs/dist/system.src.js"></script>
 
     <script src="systemjs.config.js"></script>
-  
-    <!-- Establish websocket connection with server -->
-    <!--script src="/socket.io/socket.io.js"></script-->
-    <!--script>
-        var socket = io();
-    </script-->
     
     <script>
       System.import('main.js').catch(function(err){ console.error(err); });
