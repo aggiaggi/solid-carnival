@@ -1,20 +1,11 @@
 import { Component } from '@angular/core';
-import { AxisService } from './axis.service';
 import { OnInit } from '@angular/core';
-import { AxisComponent } from './axis/axis.component';
 
 @Component({
-  selector: 'my-app',
+  selector: 'moco-root',
   templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  name = 'Camera Motion Control App';
-
-  constructor(private axisService: AxisService) { }
-
-  ngOnInit(): void {
-
-  }
-
-
+export class AppComponent {
+  title = 'Camera Motion Control App';
 }

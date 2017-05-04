@@ -19,6 +19,6 @@ export class  MotorComponent {
   vBus: number;
   
   kval(): number {
-  	return this.ratedVoltage * this.ratedCurrent / vBus;
+  	return this.ratedVoltage * this.ratedCurrent / this.vBus;
   }
 }

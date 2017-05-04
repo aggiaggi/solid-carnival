@@ -37,7 +37,7 @@ export class AxisComponent implements OnInit {
 
             data.trim();
             let dataobj = JSON.parse(data);
-            //console.log(dataobj);
+            console.log(dataobj);
         });
     }
 }

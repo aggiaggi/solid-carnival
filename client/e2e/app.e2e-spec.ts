@@ -1,15 +1,14 @@
-import { browser, element, by } from 'protractor';
+import { MococamPage } from './app.po';
 
-describe('QuickStart E2E Tests', function () {
+describe('mococam App', () => {
+  let page: MococamPage;
 
-  let expectedMsg = 'Hello Angular';
-
-  beforeEach(function () {
-    browser.get('');
+  beforeEach(() => {
+    page = new MococamPage();
   });
 
-  it('should display: ' + expectedMsg, function () {
-    expect(element(by.css('h1')).getText()).toEqual(expectedMsg);
+  it('should display message saying app works', () => {
+    page.navigateTo();
+    expect(page.getParagraphText()).toEqual('moco works!');
   });
-
 });
