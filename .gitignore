@@ -1,5 +1,6 @@
 client/src/**/*.js
 client/old
+client/dist
 !client/src/systemjs.config.extras.js
 !client/src/systemjs.config.js
 !client/src/systemjs-angular-loader.js
