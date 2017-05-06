@@ -8,7 +8,7 @@ export class AxisService {
     private socket: SocketIOClient.Socket;
 
     constructor() {
-        this.socket = io.connect('http://tian.local:3000'); //'http://tian.local:3000'
+        //this.socket = io.connect('http://tian.local:3000'); // 'http://tian.local:3000'
     }
 
     getAxisPosition(fn: Function): void {

@@ -17,7 +17,7 @@
                     <input type="range" name="speed" min="-{{maxSpeed}}" max="{{maxSpeed}}" ng-show="commandmode=='run'" ng-model="speed"
                         (touchend)="run(axis, speed)" (click)="run(axis, speed)" />
                     <input type="range" name="position" ng-disabled="((startSoftStop == 0) || (endSoftStop == 0))" min="{{startSoftStop}}"
-                        max="{{endSoftStop}}" ng-show="commandmode=='go'" ng-model="commandedPos" ng-touchend="go(axis, commandedPos)"
+                        max="{{endSoftStop}}" *ngIf="commandmode=='go'" ng-model="commandedPos" ng-touchend="go(axis, commandedPos)"
                         (click)="go(axis, commandedPos)" />
                 </div>
             </div>

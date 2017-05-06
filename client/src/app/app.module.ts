@@ -6,8 +6,16 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import * as io from 'socket.io-client';
+import { SOCKET_IO } from './app.tokens';
+
 import { AxisService} from './axis.service';
+import { McuService} from './mcu.service';
 import { AxisComponent } from './axis/axis.component';
+
+export function socketIoFactory() {
+  return io;
+}
 
 @NgModule({
   declarations: [
@@ -20,7 +28,10 @@ import { AxisComponent } from './axis/axis.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [AxisService],
+  providers: [
+    McuService,
+    {provide: SOCKET_IO, useFactory: socketIoFactory}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

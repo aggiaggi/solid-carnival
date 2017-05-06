@@ -60,8 +60,9 @@ export class  MotorComponent {
   
   toString(): string {
   	return `Motor ${this.model}, 
-  		${this._current}A, 
-  		${this._voltage}V
+  		${this.current}A, 
+  		${this.voltage}V,
+      KVAL: ${this.kval}
   		`;
   }
 }

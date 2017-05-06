@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AxisService } from './../axis.service';
 import { OnInit } from '@angular/core';
+import { AxisService } from './../axis.service';
+import { McuService } from './../mcu.service';
 
 @Component({
     selector: 'axis',
@@ -26,18 +27,14 @@ export class AxisComponent implements OnInit {
     commandmode: string = 'run';
     programmingState: string = 'OFF';
 
-    constructor(private axisService: AxisService) { }
+    constructor(private mcuService: McuService) { }
 
     ngOnInit(): void {
-        this.getPosition();
-    }
-
-    getPosition(): void {
-        this.axisService.getAxisPosition(function (data: string) {
-
-            data.trim();
+        //Get realtime data from mcu by subscribing to McuService
+        this.mcuService.addListener((data) => {
             let dataobj = JSON.parse(data);
-            console.log(dataobj);
+            console.log(data);
         });
     }
+
 }
