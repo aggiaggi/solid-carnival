@@ -1,0 +1,30 @@
+{
+    "motors": [
+        {
+            "model": "MT-2303HS28880AW-OB",
+            "manufacturer": "Motech",
+            "size": "Nema23",
+            "voltage": 3.0,
+            "current": 2.8,
+            "resistance": 1.35,
+            "inductance": 3.0,
+            "torque": 123.6,
+            "inertia": 300,
+            "stepAngle": 1.8,
+            "electricalConstant": 0.086 
+        },
+        {
+            "model": "28BYGH105",
+            "manufacturer": "Wantai",
+            "size": "Nema14",
+            "voltage": 2.66,
+            "current": 0.95,
+            "resistance": 2.8,
+            "inductance": 0.8,
+            "torque": 4.2,
+            "inertia": 9,
+            "stepAngle": 1.8,
+            "electricalConstant": 0.039 
+        }
+    ]
+}

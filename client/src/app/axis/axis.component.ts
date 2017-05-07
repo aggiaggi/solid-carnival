@@ -1,40 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { AxisService } from './../axis.service';
-import { McuService } from './../mcu.service';
+import { AxisService } from '../services/axis.service';
+import { McuService } from '../services/mcu.service';
+import { Axis } from './axis';
 
 @Component({
     selector: 'axis',
     templateUrl: './axis.component.html',
+    //template: `<div>{{axis.toString()}}</div>`
 })
 export class AxisComponent implements OnInit {
-    index: number = 1;
-    name: string = 'Slider';
-    type: string = 'linear';
-    unit: string = 'mm';
-    ratio: number = 25; //[step/unit], 8 mm per 200 steps
-    accel: number = 300;
-    decel: number = 500;
-    speed: number = 300;
-    maxSpeed: number = 600;
-    numberOfSteps: number = 100;
-    startSoftStopsEnabled: boolean = false;
-    endSoftStopsEnabled: boolean = false;
-    startSoftStop: number = 0;
-    endSoftStop: number = 0;
-    pos: number = 0;
-    commandedPos: number = 0;
-    commandmode: string = 'run';
-    programmingState: string = 'OFF';
+    @Input() axis: Axis;
 
-    constructor(private mcuService: McuService) { }
+    constructor(private mcuService: McuService) {
+        this.axis = new Axis();
+    }
 
     ngOnInit(): void {
         //Get realtime data from mcu by subscribing to McuService
         this.mcuService.addListener((data) => {
             let dataobj = JSON.parse(data);
+            this.axis.pos = dataobj.axis1.pos;
             console.log(data);
         });
     }
-
 }

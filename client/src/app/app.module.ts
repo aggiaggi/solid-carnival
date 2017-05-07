@@ -9,8 +9,8 @@ import { AppComponent } from './app.component';
 import * as io from 'socket.io-client';
 import { SOCKET_IO } from './app.tokens';
 
-import { AxisService} from './axis.service';
-import { McuService} from './mcu.service';
+import { AxisService} from './services/axis.service';
+import { McuService} from './services/mcu.service';
 import { AxisComponent } from './axis/axis.component';
 
 export function socketIoFactory() {

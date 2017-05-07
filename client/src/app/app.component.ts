@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { McuService } from './mcu.service';
+import { McuService } from './services/mcu.service';
 
 @Component({
   selector: 'moco-root',

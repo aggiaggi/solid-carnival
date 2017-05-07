@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { SOCKET_IO } from './app.tokens';
+import { SOCKET_IO } from '../app.tokens';
 import { Observable } from 'rxjs/Rx'; // not 'rxjs/Observable' !!!
 
 const WEB_SOCKET_URL = 'http://tian.local:3000';
