@@ -1,4 +1,4 @@
-interface MotorConfig {
+export interface MotorConfig {
 	name: string;
 	manufacturer?: string;
 	size?: string;

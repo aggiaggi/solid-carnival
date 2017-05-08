@@ -22,7 +22,15 @@ export class Axis {
     motor: Motor;
 
     constructor(){
-        this.motor = new Motor('Trinamic');
+        this.motor = Motor.create({
+            name:'name', 
+            voltage:3,
+            current:0.9,
+            resistance:2.8,
+            inductance: 1,
+            stepAngle:1.8,
+            electricalConstant:0.05
+        });
     }
 
     toString(): string {
