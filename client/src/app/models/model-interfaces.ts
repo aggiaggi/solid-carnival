@@ -1,5 +1,5 @@
 export interface MotorConfig {
-	name: string;
+	id: string;
 	manufacturer?: string;
 	size?: string;
 	voltage: number;

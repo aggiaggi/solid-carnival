@@ -6,7 +6,7 @@ export class Motor {
     private _kval: number;
 
     constructor(
-        public name: string,
+        public id: string,
         manufacturer: string,
         size: string,
         private _voltage: number,
@@ -23,7 +23,7 @@ export class Motor {
     }
 
     static create(config: MotorConfig): Motor {
-        const name = config.name;
+        const id = config.id;
         const manufacturer = config.manufacturer || '';
         const size = config.size || '';
         const voltage = config.voltage;
@@ -35,7 +35,7 @@ export class Motor {
         const stepAngle = config.stepAngle;
         const electricalConstant = config.electricalConstant;
 
-        return new Motor(name, manufacturer, size,
+        return new Motor(id, manufacturer, size,
             voltage, current, resistance,
             inductance, torque, inertia,
             stepAngle, electricalConstant);
@@ -68,7 +68,7 @@ export class Motor {
     }
 
     toString(): string {
-        return `Motor ${this.name}, 
+        return `Motor ${this.id}, 
   		${this.current}A, 
   		${this.voltage}V,
       KVAL: ${this.kval}
