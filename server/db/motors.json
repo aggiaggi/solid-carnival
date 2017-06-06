@@ -1,7 +1,7 @@
 {
     "motors": [
         {
-            "name": "MT-2303HS28880AW-OB",
+            "id": "MT-2303HS28880AW-OB",
             "manufacturer": "Motech",
             "size": "Nema23",
             "voltage": 3.0,
@@ -14,7 +14,7 @@
             "electricalConstant": 0.086 
         },
         {
-            "name": "28BYGH105",
+            "id": "28BYGH105",
             "manufacturer": "Wantai",
             "size": "Nema14",
             "voltage": 2.66,
