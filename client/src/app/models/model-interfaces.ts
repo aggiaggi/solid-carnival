@@ -15,12 +15,12 @@ export interface MotorConfig {
 
 export interface AxisConfig {
 	index: number;
-  name: string;
-  type: string;
-  unit: string;
-  ratio: number; //[step/unit], 8 mm per 200 steps
-  accel: number;
-  decel: number;
-  maxSpeed: number;
-  motorId: string;
+	name: string;
+	type: string;
+	unit: string;
+	ratio: number; //[step/unit], 8 mm per 200 steps
+	accel: number;
+	decel: number;
+	maxSpeed: number;
+	motorId: string;
 }

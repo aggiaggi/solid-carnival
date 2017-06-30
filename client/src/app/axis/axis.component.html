@@ -14,11 +14,11 @@
             <div class="row">
                 <!-- Slider -->
                 <div class="col-xs-12">
-                    <input type="range" name="speed" min="-{{maxSpeed}}" max="{{maxSpeed}}" ng-show="commandmode=='run'" ng-model="speed"
-                        (touchend)="run(axis, speed)" (click)="run(axis, speed)" />
-                    <input type="range" name="position" ng-disabled="((startSoftStop == 0) || (endSoftStop == 0))" min="{{startSoftStop}}"
-                        max="{{endSoftStop}}" *ngIf="commandmode=='go'" ng-model="commandedPos" ng-touchend="go(axis, commandedPos)"
-                        (click)="go(axis, commandedPos)" />
+                    <input type="range" name="speed" min="-{{axis.maxSpeed}}" max="{{axis.maxSpeed}}" *ngIf="axis.commandmode=='run'" [(ngModel)]="axis.speed"
+                        (touchend)="axis.run()" (click)="axis.run()" />
+                    <input type="range" name="position" *ngIf="axis.commandmode=='go'" [disabled]="((startSoftStop == 0) || (endSoftStop == 0))"
+                        min="{{startSoftStop}}" max="{{endSoftStop}}" [(ngModel)]="commandedPos" (touchend)="axis.go()" (click)="axis.go()"
+                    />
                 </div>
             </div>
             <!-- 2. row -->
@@ -38,14 +38,14 @@
                     <div class="btn-group" role="group" style="margin-right:10pt">
                         <!--button id="move{{index}}" type="button" class="btn btn-default" (click)="commandmode(axis,'move')">D</button-->
                         <button id="run{{index}}" type="button" class="btn btn-success" (click)="commandmode(axis,'run')">S</button>
-                        <button id="go{{index}}" ng-disabled="((startSoftStop == 0) || (endSoftStop == 0))" type="button" class="btn btn-default"
+                        <button id="go{{index}}" [disabled]="((startSoftStop == 0) || (endSoftStop == 0))" type="button" class="btn btn-default"
                             (click)="commandmode(axis,'go')">P</button>
                     </div>
 
                     <!--Stop/nudge/run-->
                     <div class="btn-group" role="group">
-                        <button id="startsoftstop{{index}}" ng-disabled="((startSoftStop == 0) && (programmingState == 'OFF'))" type="button"
-                            class="btn btn-default" (click)="startSoftStopClicked(axis)">
+                        <button id="startsoftstop{{index}}" [disabled]="((axis.startSoftStop == 0) && (axis.programmingState == 'OFF'))" type="button" class="btn btn-default"
+                            (click)="startSoftStopClicked(axis)">
                                     <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
                                 </button>
                         <button type="button" class="btn btn-default" (click)="run(axis,-1*maxSpeed)">
@@ -67,8 +67,8 @@
                         <button type="button" class="btn btn-default" (click)="run(axis,maxSpeed)">
                             <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
                         </button>
-                        <button id="endsoftstop{{index}}" ng-disabled="((endSoftStop == 0) && (programmingState == 'OFF'))" type="button"
-                            class="btn btn-default" (click)="endSoftStopClicked(axis)">
+                        <button id="endsoftstop{{index}}" [disabled]="((axis.endSoftStop == 0) && (axis.programmingState == 'OFF'))" type="button" class="btn btn-default"
+                            (click)="endSoftStopClicked(axis)">
                             <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
                         </button>
                     </div>

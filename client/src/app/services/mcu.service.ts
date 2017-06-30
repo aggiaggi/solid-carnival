@@ -2,7 +2,8 @@ import { Injectable, Inject } from '@angular/core';
 import { SOCKET_IO } from '../app.tokens';
 import { Observable } from 'rxjs/Rx'; // not 'rxjs/Observable' !!!
 
-const WEB_SOCKET_URL = 'http://tian.local:3000';
+//const WEB_SOCKET_URL = 'http://tian.local:3000';
+const WEB_SOCKET_URL = 'http://localhost:3000';
 
 @Injectable()
 export class McuService {
@@ -13,8 +14,8 @@ export class McuService {
     
    }
 
-   addListener(fn: Function): void {
-     Observable.fromEvent(this.socket, 'position')
+   addListener(fn: Function, event: string): void {
+     Observable.fromEvent(this.socket, event)
       .subscribe((data) => {
         fn(data);
       });
