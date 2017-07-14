@@ -13,8 +13,8 @@ var SerialPort = require('serialport');
 var serialPort;
 
 //app.use(express.static('/webapp/client'));
-app.use(express.static('/webapp-ng2/webapp/client/src'));
-app.use('/node_modules', express.static('/webapp-ng2/webapp/client/node_modules'));
+//app.use(express.static('/webapp-ng2/webapp/client/src'));
+//app.use('/node_modules', express.static('/webapp-ng2/webapp/client/node_modules'));
 
 // ---------------------
 // Websocket connection
