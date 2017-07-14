@@ -25,10 +25,8 @@ export class AxisComponent implements OnInit {
 			"motorId": "MT-2303HS28880AW-OB"
         });
 
-        this.axis.startSoftStopsEnabled = true;
-        this.axis.endSoftStopsEnabled = true;
-        this.axis.startSoftStop = -100;
-        this.axis.endSoftStop = 100;
+        this.axis.startSoftStop = 0;
+        this.axis.endSoftStop = 0;
     }
     
     ngOnInit(): void {
@@ -44,5 +42,91 @@ export class AxisComponent implements OnInit {
             console.log(data);
         }, 'message');
     }
+
+    //Execute command by sending event to MCUService
+    execute(command: string): void {
+	    console.log(command);
+	    this.mcuService.send('command', command);
+    }
+
+    // Home button
+	home(): void {
+        //Normal mode
+	    if(this.axis.programmingState == "OFF") {
+	        let command = this.axis.index + "/gohome";
+	        this.execute(command);
+	        this.axis.commandedPos = 0;
+	    } //Programming mode
+        else if (this.axis.programmingState == "REC") {
+	        let command = this.axis.index + "/sethome";
+	        this.execute(command);
+	    }
+	}
+
+    // Mark button
+	mark(): void {
+        //TODO
+	}
+
+    //Stop command
+    stop(): void {
+        let command = this.axis.index + "/stop";
+        this.execute(command);
+    }
+
+    //Run @speed
+	run(speed) {
+		let command = this.axis.index + "/run/" + speed;
+		this.execute(command);
+	}
+
+    //Move number of steps
+	move(dir,steps) {
+		let command = this.axis.index + "/move/" + dir + "/" + steps;
+		this.execute(command);
+	}
+
+    //Go to position
+    go(pos): void {
+	    let command = this.axis.index + "/go/" + pos;
+	    this.execute(command);
+	}
+
+    //Start Soft Stop
+	startSoftStopClicked(): void {
+	    if (this.axis.programmingState == "OFF") {
+	        let command = this.axis.index + "/gostartsoftstop";
+	        this.execute(command);
+	        this.axis.commandedPos = this.axis.startSoftStop;
+	    } else if (this.axis.programmingState == "REC") {
+	        let command = this.axis.index + "/markstartsoftstop";
+	        this.execute(command);
+	        //axis.startSoftStop = axis.pos;
+	    } else if (this.axis.programmingState == "DEL") {
+	        let command = this.axis.index + "/deletestartsoftstop";
+	        this.execute(command);
+	        this.axis.startSoftStop = 0;
+	    }
+	}
+
+    //End Soft Stop
+	endSoftStopClicked() {
+	    if (this.axis.programmingState == "OFF") {
+	        let command = this.axis.index + "/goendsoftstop";
+	        this.execute(command);
+	        this.axis.commandedPos = this.axis.endSoftStop;
+	    } else if (this.axis.programmingState == "REC") {
+	        let command = this.axis.index + "/markendsoftstop";
+	        this.execute(command);
+	        this.axis.endSoftStop = this.axis.pos;
+	    }
+	    else if (this.axis.programmingState == "DEL") {
+	        let command = this.axis.index + "/deleteendsoftstop";
+	        this.execute(command);
+	        this.axis.endSoftStop = 0;
+	    }
+	}
+
+    
 
 }

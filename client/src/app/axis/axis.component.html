@@ -26,10 +26,10 @@
                 <div class="col-xs-9">
                     <!-- Home -->
                     <div class="btn-group" role="group" style="margin-right:10pt">
-                        <button id="home{{index}}" type="button" class="btn btn-default" (click)="home(axis)">
+                        <button id="home{{index}}" type="button" class="btn btn-default" (click)="home()">
                             <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                         </button>
-                        <button id="mark{{index}}" type="button" class="btn btn-default" (click)="mark(axis)">
+                        <button id="mark{{index}}" type="button" class="btn btn-default" (click)="mark()">
                             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
                         </button>
                     </div>
@@ -44,31 +44,31 @@
 
                     <!--Stop/nudge/run-->
                     <div class="btn-group" role="group">
-                        <button id="startsoftstop{{index}}" [disabled]="((axis.startSoftStop == 0) && (axis.programmingState == 'OFF'))" type="button" class="btn btn-default"
-                            (click)="startSoftStopClicked(axis)">
+                        <button id="startsoftstop{{index}}" [disabled]="((axis.startSoftStop == 0) && (axis.programmingState == 'OFF'))" type="button"
+                            class="btn btn-default" (click)="startSoftStopClicked(axis)">
                                     <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
                                 </button>
-                        <button type="button" class="btn btn-default" (click)="run(axis,-1*maxSpeed)">
+                        <button type="button" class="btn btn-default" (click)="run(-1*axis.maxSpeed)">
                                     <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
                                 </button>
-                        <button type="button" class="btn btn-default" (click)="move(axis,'REV',100)">
+                        <button type="button" class="btn btn-default" (click)="move('REV',100)">
                                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                                 </button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" (click)="stop(axis)">
+                        <button type="button" class="btn btn-default" (click)="stop()">
                                     <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
                                 </button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" (click)="move(axis,'FWD',100)">
+                        <button type="button" class="btn btn-default" (click)="move('FWD',100)">
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                         </button>
-                        <button type="button" class="btn btn-default" (click)="run(axis,maxSpeed)">
+                        <button type="button" class="btn btn-default" (click)="run(axis.maxSpeed)">
                             <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
                         </button>
-                        <button id="endsoftstop{{index}}" [disabled]="((axis.endSoftStop == 0) && (axis.programmingState == 'OFF'))" type="button" class="btn btn-default"
-                            (click)="endSoftStopClicked(axis)">
+                        <button id="endsoftstop{{index}}" [disabled]="((axis.endSoftStop == 0) && (axis.programmingState == 'OFF'))" type="button"
+                            class="btn btn-default" (click)="endSoftStopClicked(axis)">
                             <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
                         </button>
                     </div>

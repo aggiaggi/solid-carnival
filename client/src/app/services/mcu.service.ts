@@ -21,4 +21,9 @@ export class McuService {
       });
     }
 
+    //Send event to server
+    send(event:string, message: string): void {
+      this.socket.emit(event, message);
+    }
+
 }
