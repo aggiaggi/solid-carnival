@@ -15,9 +15,9 @@
                 <!-- Slider -->
                 <div class="col-xs-12">
                     <input type="range" name="speed" min="-{{axis.maxSpeed}}" max="{{axis.maxSpeed}}" *ngIf="axis.commandmode=='run'" [(ngModel)]="axis.speed"
-                        (touchend)="axis.run()" (click)="axis.run()" />
-                    <input type="range" name="position" *ngIf="axis.commandmode=='go'" [disabled]="((startSoftStop == 0) || (endSoftStop == 0))"
-                        min="{{startSoftStop}}" max="{{endSoftStop}}" [(ngModel)]="commandedPos" (touchend)="axis.go()" (click)="axis.go()"
+                        (touchend)="run()" (click)="run()" />
+                    <input type="range" name="position" *ngIf="axis.commandmode=='go'" [disabled]="((axis.startSoftStop == 0) || (axis.endSoftStop == 0))"
+                        min="{{axis.startSoftStop}}" max="{{axis.endSoftStop}}" [(ngModel)]="axis.commandedPos" (touchend)="go()" (click)="go()"
                     />
                 </div>
             </div>
@@ -36,10 +36,12 @@
 
                     <!-- Command Mode -->
                     <div class="btn-group" role="group" style="margin-right:10pt">
-                        <!--button id="move{{index}}" type="button" class="btn btn-default" (click)="commandmode(axis,'move')">D</button-->
-                        <button id="run{{index}}" type="button" class="btn btn-success" (click)="commandmode(axis,'run')">S</button>
-                        <button id="go{{index}}" [disabled]="((startSoftStop == 0) || (endSoftStop == 0))" type="button" class="btn btn-default"
-                            (click)="commandmode(axis,'go')">P</button>
+                        <button id="run{{index}}" type="button" class="btn btn-default" 
+                        [ngClass] ="{'btn-success' : axis.commandmode=='run'}"
+                        (click)="commandmode('run')">S</button>
+                        <button id="go{{index}}" [disabled]="((axis.startSoftStop == 0) || (axis.endSoftStop == 0))" type="button" class="btn btn-default"
+                        [ngClass] ="{'btn-success' : axis.commandmode=='go'}"
+                            (click)="commandmode('go')">P</button>
                     </div>
 
                     <!--Stop/nudge/run-->
@@ -79,11 +81,16 @@
 
                     <div class="btn-group" role="group">
                         <!-- Record -->
-                        <button id="record{{index}}" ng-disabled="programmingState == 'DEL'" type="button" class="btn btn-default" (click)="recordToggle(axis)">
+                        <button 
+                        ng-disabled="axis.programmingState == 'DEL'" 
+                        type="button" 
+                        class="btn btn-default DEL" 
+                        [ngClass] = "{'btn-success' : axis.programmingState=='REC'}"
+                        (click)="recordToggle()">
                             <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
                         </button>
                         <!-- Delete -->
-                        <button id="delete{{index}}" ng-disabled="programmingState == 'REC'" type="button" class="btn btn-default" (click)="deleteToggle(axis)">
+                        <button id="delete{{index}}" ng-disabled="axis.programmingState == 'REC'" type="button" class="btn btn-default" (click)="deleteToggle(axis)">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>
                         <button id="keyframe{{index}}" type="button" class="btn btn-default" (click)="markKeyframe(axis)">
