@@ -4,8 +4,6 @@ import { AxisConfig } from '../models/model-interfaces';
 export class Axis {
     public speed = 300;
     public pos = 0;
-    public startSoftStopsEnabled = false;
-    public endSoftStopsEnabled = false;
     public startSoftStop = 0;
     public endSoftStop = 0;
     public commandedPos = 0;
@@ -37,14 +35,6 @@ export class Axis {
 
         return new Axis(index, name, type, unit,
             ratio, accel, decel, maxSpeed, motorId);
-    }
-
-    run(): void {
-
-    }
-
-    go(): void {
-
     }
 
     toString(): string {
