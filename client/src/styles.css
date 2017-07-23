@@ -91,16 +91,16 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 /* Programming State REC */
-.REC {
+.recording {
    /* animation-name: RECAnimation;
     animation-duration: 1s;
     animation-iteration-count: infinite;
        */
-   background-color: green;
+   background-color: orange;
 }
 
 /* Programming State DEL */
-.DEL {
+.delete {
     background-color: red;
     /*animation-name: RECAnimation;
     animation-duration: 1s;

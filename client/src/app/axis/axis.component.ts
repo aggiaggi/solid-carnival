@@ -25,8 +25,8 @@ export class AxisComponent implements OnInit {
 			"motorId": "MT-2303HS28880AW-OB"
         });
 
-        this.axis.startSoftStop = 0;
-        this.axis.endSoftStop = 0;
+        this.axis.startSoftStop = -100;
+        this.axis.endSoftStop = 100;
     }
     
     ngOnInit(): void {
@@ -66,6 +66,17 @@ export class AxisComponent implements OnInit {
     // Mark button
 	mark(): void {
         //TODO
+	}
+
+    //Command mode
+	commandmode(mode) {
+		console.log(mode + " mode");
+		if (mode == "run") {
+			this.axis.commandmode = "run";
+		} else if(mode == "go") {
+		    this.axis.commandmode = "go";
+		    this.axis.commandedPos = this.axis.pos;
+		}		
 	}
 
     //Stop command
@@ -124,6 +135,28 @@ export class AxisComponent implements OnInit {
 	        let command = this.axis.index + "/deleteendsoftstop";
 	        this.execute(command);
 	        this.axis.endSoftStop = 0;
+	    }
+	}
+
+	//Toggeling of record button
+    recordToggle() {
+        console.log("toggle recording!")
+	    if (this.axis.programmingState == "OFF") {
+	        this.axis.programmingState = "REC";
+	    }
+	    else {
+	        this.axis.programmingState = "OFF";
+        }
+	}
+
+	// Toggleing of delete button
+	deleteToggle() {
+	    console.log("toggle delete!")
+	    if (this.axis.programmingState == "OFF") {
+	        this.axis.programmingState = "DEL";
+	    }
+	    else {
+	        this.axis.programmingState = "OFF";
 	    }
 	}
 
