@@ -81,6 +81,7 @@ export class AxisComponent implements OnInit {
 
     //Stop command
     stop(): void {
+		this.axis.speed = 0;
         let command = this.axis.index + "/stop";
         this.execute(command);
     }
