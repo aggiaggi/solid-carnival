@@ -11,6 +11,7 @@ import { SOCKET_IO } from './app.tokens';
 
 import { AxisService} from './services/axis.service';
 import { McuService} from './services/mcu.service';
+import { AxesComponent } from './axes/axes.component';
 import { AxisComponent } from './axis/axis.component';
 
 export function socketIoFactory() {
@@ -20,6 +21,7 @@ export function socketIoFactory() {
 @NgModule({
   declarations: [
     AppComponent,
+    AxesComponent,
     AxisComponent
   ],
   imports: [

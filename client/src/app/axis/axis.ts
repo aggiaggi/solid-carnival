@@ -2,7 +2,7 @@ import { Motor } from '../motor/motor';
 import { AxisConfig } from '../models/model-interfaces';
 
 export class Axis {
-    public speed = 300;
+    public speed = 0;
     public pos = 0;
     public startSoftStop = 0;
     public endSoftStop = 0;
@@ -38,7 +38,8 @@ export class Axis {
     }
 
     toString(): string {
-        return `Axis ${this.index} / ${this.motorId}`;
+        // return `Axis ${this.index} / ${this.motorId}`;
+        return JSON.stringify(this);
     }
 
 }

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { AxisService } from '../services/axis.service';
+// import { AxisService } from '../services/axis.service';
 import { McuService } from '../services/mcu.service';
 import { Axis } from './axis';
 import { AxisConfig } from '../models/model-interfaces';
@@ -11,26 +11,14 @@ import { AxisConfig } from '../models/model-interfaces';
 })
 export class AxisComponent implements OnInit {
     @Input() axis: Axis;
+	DEBUG = true;
 
-    constructor(private mcuService: McuService) {
-        this.axis = Axis.create({
-           "index": 1,
-			"name": "Slider",
-			"type": "linear",
-			"unit": "mm",
-			"ratio": 25,
-			"accel": 200,
-			"decel": 200,
-			"maxSpeed": 1200,
-			"motorId": "MT-2303HS28880AW-OB"
-        });
-
-        this.axis.startSoftStop = -100;
-        this.axis.endSoftStop = 100;
+    constructor(private mcuService: McuService) {      
     }
     
     ngOnInit(): void {
-        //Get realtime data from mcu by subscribing to McuService
+		//Get realtime data from mcu by subscribing to McuService
+		//TODO: rearrange axis data -> each axis gets its own JSON data array
         this.mcuService.addListener((data) => {
             let dataobj = JSON.parse(data);
             this.axis.pos = dataobj.axis1.pos;
@@ -87,8 +75,8 @@ export class AxisComponent implements OnInit {
     }
 
     //Run @speed
-	run(speed) {
-		let command = this.axis.index + "/run/" + speed;
+	run() {
+		let command = this.axis.index + "/run/" + this.axis.speed;
 		this.execute(command);
 	}
 
@@ -99,8 +87,8 @@ export class AxisComponent implements OnInit {
 	}
 
     //Go to position
-    go(pos): void {
-	    let command = this.axis.index + "/go/" + pos;
+    go(): void {
+	    let command = this.axis.index + "/go/" + this.axis.commandedPos;
 	    this.execute(command);
 	}
 
