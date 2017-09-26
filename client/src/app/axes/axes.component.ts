@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { AxisService } from '../services/axis.service';
+import { AxisConfigService } from '../services/axis-config.service';
 import { Axis } from '../axis/axis';
 import { AxisConfig } from '../models/model-interfaces';
 

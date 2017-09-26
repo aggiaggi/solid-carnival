@@ -9,8 +9,8 @@ import { AppComponent } from './app.component';
 import * as io from 'socket.io-client';
 import { SOCKET_IO } from './app.tokens';
 
-import { AxisService} from './services/axis.service';
-import { McuService} from './services/mcu.service';
+import { AxisConfigService} from './services/axis-config.service';
+import { RealtimeDataService} from './services/realtime-data.service';
 import { AxesComponent } from './axes/axes.component';
 import { AxisComponent } from './axis/axis.component';
 
@@ -31,8 +31,11 @@ export function socketIoFactory() {
     AppRoutingModule
   ],
   providers: [
-    McuService,
-    {provide: SOCKET_IO, useFactory: socketIoFactory}
+    RealtimeDataService,
+    AxisConfigService,
+    {provide: SOCKET_IO, useFactory: socketIoFactory},
+    {provide: 'greeting', useValue: 'Servus!'},
+    {provide: 'WEB_SOCKET_URL', useValue: 'http://localhost:3000'}
   ],
   bootstrap: [AppComponent]
 })

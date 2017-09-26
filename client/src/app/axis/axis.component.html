@@ -1,5 +1,5 @@
 <div class="row">
-   
+
     <div class="panel panel-default">
         <!-- debug information -->
         <pre *ngIf="DEBUG">{{axis.toString()}}</pre>
@@ -20,8 +20,8 @@
                     <input type="range" name="speed" min="-{{axis.maxSpeed}}" max="{{axis.maxSpeed}}" *ngIf="axis.commandmode=='run'" [(ngModel)]="axis.speed"
                         (touchend)="run()" (click)="run()" />
                     <input type="range" name="position" *ngIf="axis.commandmode=='go'" [disabled]="((axis.startSoftStop == 0) || (axis.endSoftStop == 0))"
-                        min="{{axis.startSoftStop}}" max="{{axis.endSoftStop}}" [(ngModel)]="axis.commandedPos" (touchend)="go()" (click)="go()"
-                    />
+                        min="{{axis.startSoftStop}}" max="{{axis.endSoftStop}}" [(ngModel)]="axis.commandedPos" (touchend)="go()"
+                        (click)="go()" />
                 </div>
             </div>
             <!-- 2. row -->
@@ -29,9 +29,7 @@
                 <div class="col-xs-9">
                     <!-- Home -->
                     <div class="btn-group" role="group" style="margin-right:10pt">
-                        <button type="button" 
-                            class="btn"
-                            [ngClass] = "{'recording' : axis.programmingState=='REC', 'delete' : axis.programmingState=='DEL',  'btn-default' : axis.programmingState=='OFF'}"
+                        <button type="button" class="btn" [ngClass]="{'recording' : axis.programmingState=='REC', 'delete' : axis.programmingState=='DEL',  'btn-default' : axis.programmingState=='OFF'}"
                             (click)="home()">
                             <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                         </button>
@@ -42,30 +40,21 @@
 
                     <!-- Command Mode -->
                     <div class="btn-group" role="group" style="margin-right:10pt">
-                        <button type="button" class="btn" 
-                        [ngClass] ="{'btn-success' : axis.commandmode=='run'}"
-                        (click)="commandmode('run')">S</button>
+                        <button type="button" class="btn" [ngClass]="{'btn-success' : axis.commandmode=='run'}" (click)="commandmode('run')">S</button>
                         <button id="go{{index}}" [disabled]="((axis.startSoftStop == 0) || (axis.endSoftStop == 0))" type="button" class="btn btn-default"
-                        [ngClass] ="{'btn-success' : axis.commandmode=='go'}"
-                            (click)="commandmode('go')">P</button>
+                            [ngClass]="{'btn-success' : axis.commandmode=='go'}" (click)="commandmode('go')">P</button>
                     </div>
 
                     <!--Stop/nudge/run-->
                     <div class="btn-group" role="group">
-                        <button [disabled]="((axis.startSoftStop == 0) && (axis.programmingState == 'OFF'))" type="button"
-                            class="btn"
-                            [ngClass] = "{'recording' : axis.programmingState=='REC', 'delete' : axis.programmingState=='DEL', 'btn-default' : axis.programmingState=='OFF'}"
+                        <button [disabled]="((axis.startSoftStop == 0) && (axis.programmingState == 'OFF'))" type="button" class="btn" [ngClass]="{'recording' : axis.programmingState=='REC', 'delete' : axis.programmingState=='DEL', 'btn-default' : axis.programmingState=='OFF'}"
                             (click)="startSoftStopClicked(axis)">
                                     <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
                                 </button>
-                        <button type="button" 
-                            class="btn btn-default"
-                            (click)="run(-1*axis.maxSpeed)">
+                        <button type="button" class="btn btn-default" (click)="run(-1*axis.maxSpeed)">
                                     <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
                                 </button>
-                        <button type="button" 
-                            class="btn btn-default" 
-                            (click)="move('REV',100)">
+                        <button type="button" class="btn btn-default" (click)="move('REV',100)">
                                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                                 </button>
                     </div>
@@ -81,9 +70,7 @@
                         <button type="button" class="btn btn-default" (click)="run(axis.maxSpeed)">
                             <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
                         </button>
-                        <button [disabled]="((axis.endSoftStop == 0) && (axis.programmingState == 'OFF'))" type="button"
-                            class="btn"
-                            [ngClass] = "{'recording' : axis.programmingState=='REC', 'delete' : axis.programmingState=='DEL', 'btn-default' : axis.programmingState=='OFF'}"
+                        <button [disabled]="((axis.endSoftStop == 0) && (axis.programmingState == 'OFF'))" type="button" class="btn" [ngClass]="{'recording' : axis.programmingState=='REC', 'delete' : axis.programmingState=='DEL', 'btn-default' : axis.programmingState=='OFF'}"
                             (click)="endSoftStopClicked(axis)">
                             <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
                         </button>
@@ -96,17 +83,13 @@
                     <div class="btn-group" role="group">
                         <!-- Record -->
                         <button 
-                        ng-disabled="axis.programmingState == 'DEL'" 
-                        type="button" 
-                        class="btn" 
-                        [ngClass] = "{'recording' : axis.programmingState=='REC', 'btn-default' : axis.programmingState=='OFF'}"
-                        (click)="recordToggle()">
+                        ng-disabled="axis.programmingState == 'DEL'" type="button" class="btn" 
+                        [ngClass]="{'recording' : axis.programmingState=='REC', 'btn-default' : axis.programmingState=='OFF'}"
+                            (click)="recordToggle()">
                             <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
                         </button>
                         <!-- Delete -->
-                        <button id="delete{{index}}" ng-disabled="axis.programmingState == 'REC'" type="button" 
-                            class="btn"
-                            [ngClass] = "{'delete' : axis.programmingState=='DEL', 'btn-default' : axis.programmingState=='OFF'}"
+                        <button id="delete{{index}}" ng-disabled="axis.programmingState == 'REC'" type="button" class="btn" [ngClass]="{'delete' : axis.programmingState=='DEL', 'btn-default' : axis.programmingState=='OFF'}"
                             (click)="deleteToggle(axis)">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>

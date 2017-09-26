@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 // import { AxisService } from '../services/axis.service';
-import { McuService } from '../services/mcu.service';
+import { RealtimeDataService } from '../services/realtime-data.service';
 import { Axis } from './axis';
 import { AxisConfig } from '../models/model-interfaces';
 
@@ -13,28 +13,28 @@ export class AxisComponent implements OnInit {
     @Input() axis: Axis;
 	DEBUG = true;
 
-    constructor(private mcuService: McuService) {      
+    constructor(private realtimeDataService: RealtimeDataService) {      
     }
     
     ngOnInit(): void {
-		//Get realtime data from mcu by subscribing to McuService
+		//Get realtime data from mcu by subscribing to realtimeDataService
 		//TODO: rearrange axis data -> each axis gets its own JSON data array
-        this.mcuService.addListener((data) => {
+        this.realtimeDataService.addListener((data) => {
             let dataobj = JSON.parse(data);
             this.axis.pos = dataobj.axis1.pos;
             console.log(data);
         }, 'position');
 
         //Setup message channel to server
-        this.mcuService.addListener((data) => {
+        this.realtimeDataService.addListener((data) => {
             console.log(data);
         }, 'message');
     }
 
-    //Execute command by sending event to MCUService
+    //Execute command by sending event to realtimeDataService
     execute(command: string): void {
 	    console.log(command);
-	    this.mcuService.send('command', command);
+	    this.realtimeDataService.send('command', command);
     }
 
     // Home button
@@ -75,8 +75,8 @@ export class AxisComponent implements OnInit {
     }
 
     //Run @speed
-	run() {
-		let command = this.axis.index + "/run/" + this.axis.speed;
+	run(speed: number) {
+		let command = this.axis.index + "/run/" + speed;
 		this.execute(command);
 	}
 

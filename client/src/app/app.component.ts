@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { McuService } from './services/mcu.service';
+import { RealtimeDataService } from './services/realtime-data.service';
+import { AxisConfigService } from './services/axis-config.service';
 
 @Component({
   selector: 'moco-root',
@@ -10,5 +11,6 @@ import { McuService } from './services/mcu.service';
 export class AppComponent {
   title = 'Camera Motion Control App';
 
-  constructor(private mcuService: McuService){}
+  constructor(private mcuService: RealtimeDataService,
+              private axisConfigService: AxisConfigService){}
 }
