@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AxisConfigService {
 
-    constructor(@Inject('greeting') greeting: string) {
+    constructor(@Inject('greeting') greeting) {
         console.log(greeting + ' from AxisConfigService');
     }
 

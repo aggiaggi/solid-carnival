@@ -35,7 +35,8 @@ export function socketIoFactory() {
     AxisConfigService,
     {provide: SOCKET_IO, useFactory: socketIoFactory},
     {provide: 'greeting', useValue: 'Servus!'},
-    {provide: 'WEB_SOCKET_URL', useValue: 'http://localhost:3000'}
+    {provide: 'WEB_SOCKET_URL', useValue: 'http://localhost:3000'},
+    {provide: 'DEBUG', useValue: false}
   ],
   bootstrap: [AppComponent]
 })

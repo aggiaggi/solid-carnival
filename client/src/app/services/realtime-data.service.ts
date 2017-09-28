@@ -8,8 +8,8 @@ export class RealtimeDataService {
 
   constructor( 
     @Inject(SOCKET_IO) socketIO,
-    @Inject('WEB_SOCKET_URL') WEB_SOCKET_URL: string,
-    @Inject('greeting') GREETING: string
+    @Inject('WEB_SOCKET_URL') WEB_SOCKET_URL,
+    @Inject('greeting') GREETING
     ) {
     this.socket = socketIO(WEB_SOCKET_URL);
     console.log(GREETING + ' from RealtimeDataService');

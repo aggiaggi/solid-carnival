@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { AxisConfigService } from '../services/axis-config.service';
 import { Axis } from '../axis/axis';
@@ -10,6 +11,12 @@ import { AxisConfig } from '../models/model-interfaces';
 })
 export class AxesComponent {
     axes: Array<Axis> = [];
+
+    debug: boolean;
+    
+    constructor(@Inject('DEBUG') debug) { 
+        this.debug = debug;  
+    }
 
     ngOnInit(): void {
         //TODO: get data from service

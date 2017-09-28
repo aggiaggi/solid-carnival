@@ -11,6 +11,6 @@ import { AxisConfigService } from './services/axis-config.service';
 export class AppComponent {
   title = 'Camera Motion Control App';
 
-  constructor(private mcuService: RealtimeDataService,
+  constructor(private realtimeDataService: RealtimeDataService,
               private axisConfigService: AxisConfigService){}
 }

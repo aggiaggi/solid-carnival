@@ -1,5 +1,5 @@
 <div class="container">
-  <pre>{{this.toString()}}</pre>
+  <pre *ngIf="debug">{{this.toString()}}</pre>
   <axis *ngFor="let axis of axes" [axis]="axis">
   </axis>
 </div>
