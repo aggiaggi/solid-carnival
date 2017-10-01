@@ -1,25 +1,26 @@
-var socket_port = 3000;	//port for io.socket
-var serial_port = "/dev/ttySAMD"; //serial port
 
-//var express = require('/usr/lib/node_modules/express');
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-//var io = require('/usr/lib/node_modules/socket.io')(http);
-var io = require('socket.io')(http);
+// ---------------------
+// Json Server
+//----------------------
+const jsonServer = require('json-server')
+const server = jsonServer.create()
+const router = jsonServer.router('db/db.json')
+const middlewares = jsonServer.defaults()
 
-//var SerialPort = require("/usr/lib/node_modules/serialport");
-var SerialPort = require('serialport');
-var serialPort;
-
-//app.use(express.static('/webapp/client'));
-//app.use(express.static('/webapp-ng2/webapp/client/src'));
-//app.use('/node_modules', express.static('/webapp-ng2/webapp/client/node_modules'));
+server.use(middlewares)
+server.use(router)
+server.listen(3001, () => {
+  console.log('JSON Server is running')
+})
 
 // ---------------------
 // Websocket connection
 //----------------------
-
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var socket_port = 3000;	//port for io.socket
 //Websocket server start listening  on port
 http.listen(socket_port, function () {
 	console.log('Websocket server listening on localhost:' + socket_port);
@@ -28,7 +29,7 @@ http.listen(socket_port, function () {
 //Handle websocket "connection" event
 io.on('connection', function (socket) {
 	console.log("Websocket client connected");
-	io.emit('message', 'Server Connected!');
+	io.emit('message', 'Websocket server connected!');
 
 	//Handle websocket "disconnect" events
 	socket.on('disconnect', function () {
@@ -58,8 +59,10 @@ io.on('error', function (err) {
 // Serial port connection
 //----------------------
 
-//Open serial port
-//openSerialPort(2000);
+var serial_port = "/dev/ttySAMD"; //serial port
+//var SerialPort = require("/usr/lib/node_modules/serialport");
+var SerialPort = require('serialport');
+var serialPort;
 
 //Recusrsive function that tries to open serial port
 //waittime: delay between attempts 
