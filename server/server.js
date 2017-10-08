@@ -2,28 +2,29 @@
 // ---------------------
 // Json Server
 //----------------------
-const jsonServer = require('json-server')
-const server = jsonServer.create()
-const router = jsonServer.router('db/db.json')
-const middlewares = jsonServer.defaults()
+const jsonServer = require('json-server');
+const server = jsonServer.create();
+const router = jsonServer.router('db/db.json');
+const middlewares = jsonServer.defaults();
+const json_port = 3001;
 
-server.use(middlewares)
-server.use(router)
+server.use(middlewares);
+server.use(router);
 server.listen(3001, () => {
-  console.log('JSON Server is running')
+	console.log('JSON server listening on port:' + json_port);
 })
 
 // ---------------------
 // Websocket connection
 //----------------------
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var socket_port = 3000;	//port for io.socket
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const socket_port = 3000;	//port for io.socket
 //Websocket server start listening  on port
 http.listen(socket_port, function () {
-	console.log('Websocket server listening on localhost:' + socket_port);
+	console.log('Websocket server listening on port:' + socket_port);
 });
 
 //Handle websocket "connection" event
