@@ -1,3 +1,8 @@
+// The following node packages are expected to be installed (globally via opkg on TIAN):
+// node-express ('/usr/lib/node_modules/express')
+// node-socket-io ('/usr/lib/node_modules/socket.io')
+// node-serialport ("/usr/lib/node_modules/serialport")
+
 
 // ---------------------
 // Json Server
@@ -22,6 +27,12 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const socket_port = 3000;	//port for io.socket
+
+//Use web app content from dist folder 
+const app_dir = __dirname + '/../client/dist';
+app.use(express.static(app_dir));
+console.log('serving app from ' + app_dir);
+
 //Websocket server start listening  on port
 http.listen(socket_port, function () {
 	console.log('Websocket server listening on port:' + socket_port);
@@ -37,7 +48,7 @@ io.on('connection', function (socket) {
 		console.log('Websocket client disconnected');
 	});
 
-	//Handle "command" events sent via the websocket connection
+	//Handle "command" events sent from the client
 	socket.on('command', function (msg) {
 		console.log(msg);
 		try {
@@ -60,10 +71,12 @@ io.on('error', function (err) {
 // Serial port connection
 //----------------------
 
-var serial_port = "/dev/ttySAMD"; //serial port
-//var SerialPort = require("/usr/lib/node_modules/serialport");
-var SerialPort = require('serialport');
+const serial_port = "/dev/ttySAMD"; //serial port TIAN
+const SerialPort = require('serialport');
 var serialPort;
+
+//Open serial port
+openSerialPort(2000);
 
 //Recusrsive function that tries to open serial port
 //waittime: delay between attempts 
