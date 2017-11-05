@@ -1,8 +1,13 @@
+//Commandline parqameters
+// --mockserialdata  :deactivates serial port and generates mock serial data
+
 // The following node packages are expected to be installed (globally via opkg on TIAN):
 // node-express ('/usr/lib/node_modules/express')
 // node-socket-io ('/usr/lib/node_modules/socket.io')
 // node-serialport ("/usr/lib/node_modules/serialport")
 
+//Get command line arguments
+var argv = require('minimist')(process.argv.slice(2));
 
 // ---------------------
 // Json Server
@@ -76,7 +81,10 @@ const SerialPort = require('serialport');
 var serialPort;
 
 //Open serial port
-openSerialPort(2000);
+if (!argv.mockserialdata) {
+	openSerialPort(2000);
+}
+	
 
 //Recusrsive function that tries to open serial port
 //waittime: delay between attempts 
@@ -149,5 +157,22 @@ function openSerialPort(waittime) {
 		var start = new Date().getTime();
 		while (new Date().getTime() < start + delay);
 	}
+}
+
+// ------------------------------------------
+// Mock serial data generator
+//-------------------------------------------
+if (argv.mockserialdata) {
+	console.log("!!!Generating mock serial data!!!");
+	setInterval(function(){
+		var obj = {
+					"axis1":{"pos":111,"stop1":-1111,"stop2":1111},
+					"axis2":{"pos":222,"stop1":-2222,"stop2":2222},
+					"axis3":{"pos":333,"stop1":-3333,"stop2":3333}
+				};
+		var str = JSON.stringify(obj);
+		io.emit('position', str);
+		//console.log(str);
+	 }, 1000);
 }
 
