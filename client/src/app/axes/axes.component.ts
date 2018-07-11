@@ -32,8 +32,8 @@ export class AxesComponent {
             "motorId": "MT-2303HS28880AW-OB"
             };
         let myAxis = Axis.create(axisConf);
-        myAxis.startSoftStop = -100;
-        myAxis.endSoftStop = 100;
+        // myAxis.startSoftStop = -100;
+        // myAxis.endSoftStop = 100;
         this.axes.push(myAxis);
 
         axisConf = 
