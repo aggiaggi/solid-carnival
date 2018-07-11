@@ -162,17 +162,20 @@ function openSerialPort(waittime) {
 // ------------------------------------------
 // Mock serial data generator
 //-------------------------------------------
+var i=0;
 if (argv.mockserialdata) {
 	console.log("!!!Generating mock serial data!!!");
 	setInterval(function(){
-		var obj = {
-					"axis1":{"pos":111,"stop1":-1111,"stop2":1111},
-					"axis2":{"pos":222,"stop1":-2222,"stop2":2222},
-					"axis3":{"pos":333,"stop1":-3333,"stop2":3333}
-				};
-		var str = JSON.stringify(obj);
-		io.emit('position', str);
-		//console.log(str);
-	 }, 1000);
+		//TODO: configure from db.json
+		var obj = {"pos":(-500 + i++ % 1000),"stop1":-1111,"stop2":1111};
+		var str= JSON.stringify(obj);
+		io.emit('1', str);
+		obj = {"pos":-1000 + 2*(i%1000),"stop1":-2222,"stop2":2222};
+		str= JSON.stringify(obj);
+		io.emit('2', str);
+		obj = {"pos":-1500 + 3*(i%1000),"stop1":-3333,"stop2":3333};
+		str= JSON.stringify(obj);
+		io.emit('3', str);
+	 }, 10);
 }
 
