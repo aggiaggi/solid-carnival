@@ -20,12 +20,13 @@ export class AxisComponent implements OnInit {
     
     ngOnInit(): void {
 		//Get realtime data from mcu by subscribing to realtimeDataService
-		//TODO: rearrange axis data -> each axis gets its own JSON data array
         this.realtimeDataService.addListener((data) => {
             let dataobj = JSON.parse(data);
-            this.axis.pos = dataobj.axis1.pos;
+			this.axis.pos = dataobj.pos;
+			this.axis.startSoftStop=dataobj.stop1;
+			this.axis.endSoftStop=dataobj.stop2;
             console.log(data);
-        }, 'position');
+        }, this.axis.index.toString());
 
         //Setup message channel to server
         this.realtimeDataService.addListener((data) => {
