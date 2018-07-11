@@ -1,5 +1,5 @@
 //Commandline parqameters
-// --mockserialdata  :deactivates serial port and generates mock serial data
+// --mockserialdata=true  :deactivates serial port and generates mock serial data
 
 // The following node packages are expected to be installed (globally via opkg on TIAN):
 // node-express ('/usr/lib/node_modules/express')
@@ -8,6 +8,7 @@
 
 //Get command line arguments
 var argv = require('minimist')(process.argv.slice(2));
+console.dir(argv);
 
 // ---------------------
 // Json Server
