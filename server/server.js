@@ -57,8 +57,10 @@ io.on('connection', function (socket) {
 	//Handle "command" events sent from the client
 	socket.on('command', function (msg) {
 		console.log(msg);
+		//Send command via serial port to MCU
 		try {
-			serialPort.write(msg);
+			if(!argv.mockserialdata)
+				serialPort.write(msg);
 		}
 		catch (err) {
 			console.log("Could not write to serial port: " + err);
