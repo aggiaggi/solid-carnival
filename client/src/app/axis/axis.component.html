@@ -41,7 +41,7 @@
                     <!-- Command Mode -->
                     <div class="btn-group" role="group" style="margin-right:10pt">
                         <button type="button" class="btn" [ngClass]="{'btn-success' : axis.commandmode=='run'}" (click)="commandmode('run')">S</button>
-                        <button id="go{{index}}" [disabled]="((axis.startSoftStop == 0) || (axis.endSoftStop == 0))" type="button" class="btn btn-default"
+                        <button [disabled]="((axis.startSoftStop == 0) || (axis.endSoftStop == 0))" type="button" class="btn btn-default"
                             [ngClass]="{'btn-success' : axis.commandmode=='go'}" (click)="commandmode('go')">P</button>
                     </div>
 
