@@ -79,8 +79,8 @@ export class AxisComponent implements OnInit {
     }
 
     //Run @speed
-	run(speed: number) {
-		let command = this.axis.index + "/run/" + speed;
+	run() {
+		let command = this.axis.index + "/run/" + this.axis.speed;
 		this.execute(command);
 	}
 
