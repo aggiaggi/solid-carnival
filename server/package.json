@@ -10,7 +10,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "node server.js --mockserialdata=true",
     "dist": "scp server.js package.json root@tian.local:/webapp-ng2/webapp/server && scp -r db root@tian.local:/webapp-ng2/webapp/server"
   },
   "author": "",
