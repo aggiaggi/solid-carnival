@@ -19,7 +19,7 @@ export class Axis {
         public accel: number,
         public decel: number,
         public maxSpeed: number,
-        private motorId: string
+        public motorId: string
     ) { }
 
     static create(config: AxisConfig): Axis {

@@ -36,7 +36,7 @@ export function socketIoFactory() {
     {provide: SOCKET_IO, useFactory: socketIoFactory},
     {provide: 'greeting', useValue: 'Servus!'},
     {provide: 'WEB_SOCKET_URL', useValue: 'http://localhost:3000'},
-    {provide: 'DEBUG', useValue: false}
+    {provide: 'DEBUG', useValue: false}   //activate debug information in html view
   ],
   bootstrap: [AppComponent]
 })

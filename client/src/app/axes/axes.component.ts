@@ -14,54 +14,24 @@ export class AxesComponent {
 
     debug: boolean;
     
-    constructor(@Inject('DEBUG') debug) { 
+    constructor(@Inject('DEBUG') debug,
+        private axisConfigService: AxisConfigService) { 
         this.debug = debug;  
     }
 
     ngOnInit(): void {
-        //TODO: get data from service
-        let axisConf: AxisConfig = 
-            {"index": 1,
-            "name": "Linear",
-            "type": "linear",
-            "unit": "mm",
-            "ratio": 25,
-            "accel": 300,
-            "decel": 300,
-            "maxSpeed": 1200,
-            "motorId": "MT-2303HS28880AW-OB"
-            };
-        let myAxis = Axis.create(axisConf);
-        this.axes.push(myAxis);
-
-        axisConf = 
-            {"index": 2,
-			"name": "Pan",
-			"type": "rotary",
-			"unit": "deg",
-			"ratio": 25,
-			"accel": 300,
-			"decel": 300,
-			"maxSpeed": 1200,
-			"motorId": "28BYGH105"
-            };
-        myAxis = Axis.create(axisConf);
-        this.axes.push(myAxis);
-
-        axisConf = 
-            {"index": 3,
-			"name": "Tilt",
-			"type": "rotary",
-			"unit": "deg",
-			"ratio": 25,
-			"accel": 300,
-			"decel": 300,
-			"maxSpeed": 1200,
-			"motorId": "28BYGH105"
-            };
-        myAxis = Axis.create(axisConf);
-        this.axes.push(myAxis);
-
+        //Get axis config data from AxisConfigService 
+        //and create all axes
+        let axisConf: AxisConfig;
+        let axis: Axis;
+        let numberOfAxes = this.axisConfigService.getNumberOfAxes();
+        let i:number;
+        
+        for (i=1; i<=numberOfAxes; i++){
+            axisConf = this.axisConfigService.getAxisConfig(i);
+            axis = Axis.create(axisConf);
+            this.axes.push(axis);
+         };
     }
 
     toString(): string {

@@ -30,7 +30,7 @@ export class AxisComponent implements OnInit {
 
         //Setup message channel to server
         this.realtimeDataService.addListener((data) => {
-            console.log(data);
+            console.log(data + ' -> ' + this.axis.name + ' Axis with motor ' + this.axis.motorId);
 		}, 'message');
 		
     }
