@@ -25,7 +25,7 @@ export class AxisComponent implements OnInit {
 			this.axis.pos = dataobj.pos;
 			this.axis.startSoftStop=dataobj.stop1;
 			this.axis.endSoftStop=dataobj.stop2;
-            console.log(data);
+            //console.log(data);
         }, this.axis.index.toString());
 
         //Setup message channel to server
