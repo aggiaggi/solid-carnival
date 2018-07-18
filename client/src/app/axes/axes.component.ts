@@ -13,34 +13,21 @@ import { AxisConfig } from '../models/model-interfaces';
     templateUrl: './axes.component.html',
 })
 export class AxesComponent implements OnInit {
-    axisConfigList: AxisConfig[];   //Axis config data (JSON)
     axes: Array<Axis> = [];         //Array with all axis objects
     debug: boolean;                 //flag to indicate if debug information shall be displayed in html view
     
     constructor(@Inject('DEBUG') debug,
-        private axisService: AxisService,
-        private http: Http) { 
+        private axisService: AxisService) { 
         this.debug = debug;  
     }
 
     ngOnInit(): void {
+        //Asynchronously load all axes from AxisService
         this.axisService.loadAllAxes()
             .subscribe(axes => {
                 this.axes = axes;
-            }//,
-            //Error Handling
-            // (error: Response) => {
-            //   switch (error.status) {
-            //     case 404:
-            //       console.log('Ressource not found', error);
-            //       break;
-            //     case 500:
-            //       console.log('Axis config data could not be loaded', error);
-            //       break;
-            //     default:
-            //       console.log('Something went wrong', error);
-            //   }
-            // }
+                //console.log(this.toString());
+            }
         );
     }
 

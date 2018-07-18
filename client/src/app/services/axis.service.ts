@@ -14,7 +14,7 @@ export class AxisService {
         console.log('Reading axis config data from ' + baseurl);
     }
 
-    //Load axis data from jsonDB server
+    //Load axis data from json server
     loadAllAxes(): Observable<Axis[]> {
         return this.http.get(this.baseurl)
             //for each response get JSON object
