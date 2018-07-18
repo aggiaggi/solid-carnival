@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import * as io from 'socket.io-client';
 import { SOCKET_IO } from './app.tokens';
 
-import { AxisConfigService} from './services/axis-config.service';
+import { AxisService} from './services/axis.service';
 import { RealtimeDataService} from './services/realtime-data.service';
 import { AxesComponent } from './axes/axes.component';
 import { AxisComponent } from './axis/axis.component';
@@ -32,10 +32,11 @@ export function socketIoFactory() {
   ],
   providers: [
     RealtimeDataService,
-    AxisConfigService,
+    AxisService,
     {provide: SOCKET_IO, useFactory: socketIoFactory},
     {provide: 'greeting', useValue: 'Servus!'},
     {provide: 'WEB_SOCKET_URL', useValue: 'http://localhost:3000'},
+    {provide: 'JSONDB_URL', useValue: 'http://localhost:3001/axes'},
     {provide: 'DEBUG', useValue: false}   //activate debug information in html view
   ],
   bootstrap: [AppComponent]
