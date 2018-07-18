@@ -9,7 +9,7 @@
 			"accel": 300,
 			"decel": 300,
 			"maxSpeed": 1200,
-			"motorID": "MT-2303HS28880AW-OB"
+			"motorId": "MT-2303HS28880AW-OB"
 		},
 		{
 			"index": 2,
@@ -20,7 +20,7 @@
 			"accel": 300,
 			"decel": 300,
 			"maxSpeed": 1200,
-			"motorID": "28BYGH105"
+			"motorId": "28BYGH105"
 		},
 		{
 			"index": 3,
@@ -31,7 +31,7 @@
 			"accel": 300,
 			"decel": 300,
 			"maxSpeed": 1200,
-			"motorID": "28BYGH105"
+			"motorId": "28BYGH105"
 		}
 	],
 	"motors": [
