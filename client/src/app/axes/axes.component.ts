@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import "rxjs/add/operator/map";
 import { AxisService } from '../services/axis.service';
 import { Axis } from '../models/axis';
-import { AxisConfig } from '../models/model-interfaces';
 
 @Component({
     selector: 'axes',

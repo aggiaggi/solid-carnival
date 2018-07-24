@@ -3,7 +3,6 @@ import { OnInit } from '@angular/core';
 import { Injectable, Inject } from '@angular/core';
 import { RealtimeDataService } from '../services/realtime-data.service';
 import { Axis } from '../models/axis';
-import { AxisConfig } from '../models/model-interfaces';
 
 @Component({
     selector: 'axis',
