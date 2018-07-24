@@ -1,5 +1,5 @@
-import { Motor } from '../motor/motor';
-import { AxisConfig } from '../models/model-interfaces';
+import { Motor } from './motor';
+import { AxisConfig } from './model-interfaces';
 
 export class Axis {
     public speed = 0;

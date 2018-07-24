@@ -3,7 +3,7 @@ import { Inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Axis } from '../axis/axis';
+import { Axis } from '../models/axis';
 
 @Injectable()
 export class AxisService {

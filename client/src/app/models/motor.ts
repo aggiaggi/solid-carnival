@@ -1,5 +1,5 @@
 import vsupply from 'globals';
-import { MotorConfig } from '../models/model-interfaces';
+import { MotorConfig } from './model-interfaces';
 
 export class Motor {
 
