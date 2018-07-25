@@ -6,7 +6,8 @@ import { Axis } from '../models/axis';
 
 @Component({
     selector: 'axis',
-    templateUrl: './axis.component.html',
+	templateUrl: './axis.component.html',
+	styleUrls: ['./axis.component.css']
 })
 export class AxisComponent implements OnInit {
     @Input() axis: Axis;

@@ -2,7 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Http, Response} from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+//import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import "rxjs/add/operator/map";
 import { AxisService } from '../services/axis.service';
 import { Axis } from '../models/axis';
@@ -10,6 +12,7 @@ import { Axis } from '../models/axis';
 @Component({
     selector: 'axes',
     templateUrl: './axes.component.html',
+    styleUrls: ['./axes.component.css']
 })
 export class AxesComponent implements OnInit {
     axes: Array<Axis> = [];         //Array with all axis objects

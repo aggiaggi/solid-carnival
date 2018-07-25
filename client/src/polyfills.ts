@@ -66,3 +66,9 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  * Needed for: All but Chrome, Firefox, Edge, IE11 and Safari 10
  */
 // import 'intl';  // Run `npm install --save intl`.
+
+/**
+ *  The following line is required for socket.io to work with angular 6
+ *  See https://github.com/socketio/socket.io-client/issues/1206
+*/
+(window as any).global = window;
