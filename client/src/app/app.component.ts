@@ -12,5 +12,5 @@ export class AppComponent {
   title = 'Camera Motion Control App';
 
   constructor(private realtimeDataService: RealtimeDataService,
-              private axisConfigService: AxisService){}
+              private axisConfigService: AxisService) {}
 }

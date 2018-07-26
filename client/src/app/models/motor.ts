@@ -1,41 +1,23 @@
 import vsupply from 'globals';
-//import { MotorConfig } from './model-interfaces';
 
 export interface MotorConfig {
-	id: string;
-	manufacturer?: string;
-	size?: string;
-	voltage: number;
-	current: number;
-	resistance?: number; //phase resistance in Ohm
-	inductance: number; //phase inductance in mH
-	torque?: number; //holding torque in Ncm
-	inertia?: number; //rotor inertia in g cm^2
-	stepAngle: number; //step angle in deg
-	electricalConstant: number; //electrical constant in V/hz
-	kval?: number;
+    id: string;
+    manufacturer?: string;
+    size?: string;
+    voltage: number;
+    current: number;
+    resistance?: number; // phase resistance in Ohm
+    inductance: number; // phase inductance in mH
+    torque?: number; // holding torque in Ncm
+    inertia?: number; // rotor inertia in g cm^2
+    stepAngle: number; // step angle in deg
+    electricalConstant: number; // electrical constant in V/hz
+    kval?: number;
 }
 
 export class Motor {
 
     private _kval: number;
-
-    constructor(
-        public id: string,
-        manufacturer: string,
-        size: string,
-        private _voltage: number,
-        private _current: number,
-        resistance: number,//phase resistance in Ohm
-        inductance: number, //phase inductance in mH
-        torque: number, //holding torque in Ncm
-        inertia: number, //rotor inertia in g cm^2
-        stepAngle: number, //step angle in deg
-        electricalConstant: number //electrical constant in V/hz
-    ) {
-        //calculate KVAL parameter
-        this.calculateKval();
-    }
 
     static create(config: MotorConfig): Motor {
         const id = config.id;
@@ -54,6 +36,23 @@ export class Motor {
             voltage, current, resistance,
             inductance, torque, inertia,
             stepAngle, electricalConstant);
+    }
+
+    constructor(
+        public id: string,
+        manufacturer: string,
+        size: string,
+        private _voltage: number,
+        private _current: number,
+        resistance: number,         // phase resistance in Ohm
+        inductance: number,         // phase inductance in mH
+        torque: number,             // holding torque in Ncm
+        inertia: number,            // rotor inertia in g cm^2
+        stepAngle: number,          // step angle in deg
+        electricalConstant: number  // electrical constant in V/hz
+    ) {
+        // calculate KVAL parameter
+        this.calculateKval();
     }
 
     protected calculateKval(): number {
@@ -83,8 +82,8 @@ export class Motor {
     }
 
     toString(): string {
-        return `Motor ${this.id}, 
-  		${this.current}A, 
+        return `Motor ${this.id},
+  		${this.current}A,
   		${this.voltage}V,
       KVAL: ${this.kval}
   		`;

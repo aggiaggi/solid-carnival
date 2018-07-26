@@ -31,7 +31,7 @@ import { AxisComponent } from './axis/axis.component';
     {provide: 'greeting', useValue: 'Servus!'},
     {provide: 'WEB_SOCKET_URL', useValue: 'http://localhost:3000'},
     {provide: 'JSONDB_URL', useValue: 'http://localhost:3001/axes'},
-    {provide: 'DEBUG', useValue: false}   //activate debug information in html view
+    {provide: 'DEBUG', useValue: false}   // activate debug information in html view
   ],
   bootstrap: [AppComponent]
 })

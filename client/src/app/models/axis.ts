@@ -1,16 +1,13 @@
-import { Motor } from './motor';
-//import { AxisConfig } from './model-interfaces';
-
 export interface AxisConfig {
-	index: number;
-	name: string;
-	type: string;
-	unit: string;
-	ratio: number; //[step/unit], 8 mm per 200 steps
-	accel: number;
-	decel: number;
-	maxSpeed: number;
-	motorId: string;
+    index: number;
+    name: string;
+    type: string;
+    unit: string;
+    ratio: number; // [step/unit], 8 mm per 200 steps
+    accel: number;
+    decel: number;
+    maxSpeed: number;
+    motorId: string;
 }
 
 export class Axis {
@@ -19,20 +16,8 @@ export class Axis {
     public startSoftStop = 0;
     public endSoftStop = 0;
     public commandedPos = 0;
-    public commandmode = "run";
+    public commandmode = 'run';
     public programmingState = 'OFF';
-
-    constructor(
-        public index: number,
-        public name: string,
-        public type: string,
-        public unit: string,
-        public ratio: number,
-        public accel: number,
-        public decel: number,
-        public maxSpeed: number,
-        public motorId: string
-    ) { }
 
     static create(config: AxisConfig): Axis {
         const index = config.index;
@@ -49,9 +34,20 @@ export class Axis {
             ratio, accel, decel, maxSpeed, motorId);
     }
 
+    constructor(
+        public index: number,
+        public name: string,
+        public type: string,
+        public unit: string,
+        public ratio: number,
+        public accel: number,
+        public decel: number,
+        public maxSpeed: number,
+        public motorId: string
+    ) { }
+
     toString(): string {
         // return `Axis ${this.index} / ${this.motorId}`;
         return JSON.stringify(this);
     }
-
 }

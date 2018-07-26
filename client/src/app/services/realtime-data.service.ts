@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Rx'; // not 'rxjs/Observable' !!!
 export class RealtimeDataService {
   socket: SocketIOClient.Socket;
 
-  constructor( 
+  constructor(
     @Inject('WEB_SOCKET_URL') WEB_SOCKET_URL,
     @Inject('greeting') GREETING
     ) {
@@ -21,7 +21,7 @@ export class RealtimeDataService {
       });
   }
 
-  //Send event to server
+  // Send event to server
   send(event: string, message: string): void {
     this.socket.emit(event, message);
   }

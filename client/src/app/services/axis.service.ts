@@ -11,27 +11,27 @@ import { Axis, AxisConfig } from '../models/axis';
 export class AxisService {
     private baseurl: string;
     constructor(@Inject('JSONDB_URL') baseurl,
-                private http: HttpClient) {
+        private http: HttpClient) {
         this.baseurl = baseurl;
         console.log('Reading axis config data from ' + baseurl);
     }
 
-    //Load axis data from json server
+    // Load axis data from json server
     loadAllAxes(): Observable<Axis[]> {
         return this.http.get(this.baseurl)
-            //for each response get JSON object
-            //.map(res => res.json()
-            //create axis object from each axisConfig JSON data block
+            // for each response get JSON object
+            // .map(res => res.json()
+            // create axis object from each axisConfig JSON data block
             .pipe(map((axisConfigListAsJson: any) => {
                 return axisConfigListAsJson.map((data) => {
-                    let axis:Axis = Axis.create(data);
-                    console.log("Axis: " + axis.toString());
+                    const axis: Axis = Axis.create(data);
+                    console.log('Axis: ' + axis.toString());
                     return Axis.create(data);
                 });
             }))
-         
+
     };
 
-    
+
 
 }
