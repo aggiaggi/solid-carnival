@@ -12,12 +12,18 @@ import { AxisService} from './services/axis.service';
 import { RealtimeDataService} from './services/realtime-data.service';
 import { AxesComponent } from './axes/axes.component';
 import { AxisComponent } from './axis/axis.component';
+import { EditMotorComponent } from './motors/edit-motor/edit-motor/edit-motor.component';
+import { ViewMotorComponent } from './motors/view-motor/view-motor.component';
+import { MotorListComponent } from './motors/motor-list/motor-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AxesComponent,
-    AxisComponent
+    AxisComponent,
+    EditMotorComponent,
+    ViewMotorComponent,
+    MotorListComponent
   ],
   imports: [
     BrowserModule,
