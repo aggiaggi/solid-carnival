@@ -12,12 +12,9 @@ export interface MotorConfig {
     inertia?: number; // rotor inertia in g cm^2
     stepAngle: number; // step angle in deg
     electricalConstant: number; // electrical constant in V/hz
-    kval?: number;
 }
 
 export class Motor {
-
-    private _kval: number;
 
     static create(config: MotorConfig): Motor {
         const id = config.id;
@@ -39,29 +36,21 @@ export class Motor {
     }
 
     constructor(
-        public id: string,
-        manufacturer: string,
-        size: string,
-        private _voltage: number,
-        private _current: number,
-        resistance: number,         // phase resistance in Ohm
-        inductance: number,         // phase inductance in mH
-        torque: number,             // holding torque in Ncm
-        inertia: number,            // rotor inertia in g cm^2
-        stepAngle: number,          // step angle in deg
-        electricalConstant: number  // electrical constant in V/hz
-    ) {
-        // calculate KVAL parameter
-        this.calculateKval();
-    }
-
-    protected calculateKval(): number {
-        return this._voltage * this._current / vsupply;
-    }
+        public id: string,                  // identifier / part number
+        public manufacturer: string,        // motor manufacturer
+        public size: string,                // size
+        private _voltage: number,           // rated phase voltage
+        private _current: number,           // rated phase current
+        public resistance: number,          // phase resistance in Ohm
+        public inductance: number,          // phase inductance in mH
+        public torque: number,              // holding torque in Ncm
+        public inertia: number,             // rotor inertia in g cm^2
+        public stepAngle: number,           // step angle in deg
+        public electricalConstant: number   // electrical constant in V/hz
+    ) { }
 
     set voltage(v) {
         this._voltage = v;
-        this.calculateKval();
     }
 
     get voltage() {
@@ -70,22 +59,13 @@ export class Motor {
 
     set current(c) {
         this._current = c;
-        this.calculateKval();
     }
 
     get current() {
         return this._current;
     }
 
-    get kval() {
-        return this._kval;
-    }
-
     toString(): string {
-        return `Motor ${this.id},
-  		${this.current}A,
-  		${this.voltage}V,
-      KVAL: ${this.kval}
-  		`;
+        return JSON.stringify(this);
     }
 }

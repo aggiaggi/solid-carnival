@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Motor } from '../../models/motor';
 
 @Component({
   selector: 'moco-view-motor',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-motor.component.css']
 })
 export class ViewMotorComponent implements OnInit {
+  @Input() motor: Motor;
 
   constructor() { }
 

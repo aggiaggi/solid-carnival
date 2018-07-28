@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Inject } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Http, Response} from '@angular/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/map';
 import { AxisService } from '../services/axis.service';
 import { Axis } from '../models/axis';
 

@@ -1,3 +1,5 @@
-<p>
-  motor-list works!
-</p>
+<div class="container-fluid">
+  <pre *ngIf="debug">{{this.toString()}}</pre>
+  <moco-view-motor *ngFor="let motor of motors" [motor]="motor">
+  </moco-view-motor>
+</div>
