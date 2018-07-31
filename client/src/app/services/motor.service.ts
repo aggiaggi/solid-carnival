@@ -28,7 +28,6 @@ export class MotorService {
 
   loadAllMotors(): Observable<MotorConfig[]> {
     return this.http.get<MotorConfig[]>(this.baseurl)
-      // create motor object from each JSON data block
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle error
