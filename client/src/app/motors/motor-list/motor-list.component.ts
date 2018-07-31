@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
-import { Motor} from '../../models/motor';
+import { map, catchError, subscribeOn } from 'rxjs/operators';
+import { from } from 'rxjs';
+import { Motor, MotorConfig } from '../../models/motor';
 import { MotorService } from '../../services/motor.service';
 
 @Component({
@@ -19,12 +21,16 @@ export class MotorListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Asynchronously load all motors from MotorService
     this.motorService.loadAllMotors()
-      .subscribe(motors => {
-        this.motors = motors},
-        error => console.log(error)
-      );
+      .subscribe((configList: MotorConfig[]) => { // subscribe to Observable returned by function
+        from(configList)  // emit each contained MotorConfig object in array as a sequence
+          .subscribe(
+            config => {   // create a Motor object for each config item
+              const motor: Motor = Motor.create(config);
+              console.log('Motor: ' + motor.toString());
+              this.motors.push(motor);  // add motor to motors array
+            }
+          )
+      });
   }
-
 }

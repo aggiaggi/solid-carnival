@@ -3,15 +3,14 @@ import { Inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, retry } from 'rxjs/operators';
 import { Motor, MotorConfig } from '../models/motor';
-import { retry } from '../../../node_modules/rxjs-compat/operator/retry';
 
 const httpOptions = {
-   headers: new HttpHeaders({
+  headers: new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': 'my-auth-token'
-   })
+  })
 };
 
 @Injectable({
@@ -27,21 +26,21 @@ export class MotorService {
     console.log('Reading axis config data from ' + baseurl);
   }
 
-  loadAllMotors(): Observable<Motor[]> {
+  loadAllMotors(): Observable<MotorConfig[]> {
     return this.http.get<MotorConfig[]>(this.baseurl)
       // create motor object from each JSON data block
-      .pipe(catchError(this.handleError))
-      .pipe(map((motorConfigListAsJson: MotorConfig[]) => {
-        return motorConfigListAsJson.map((data: MotorConfig) => {
-          const motor: Motor = Motor.create(data);
-          console.log('Motor: ' + motor.toString());
-          return Motor.create(data);
-        });
-      }));
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle error
+      );
   }
 
   updateMotor(motorConfig: MotorConfig): Observable<MotorConfig> {
-    return this.http.put<MotorConfig>(this.baseurl + motorConfig.id, motorConfig, httpOptions);
+    return this.http.put<MotorConfig>(this.baseurl + motorConfig.id, motorConfig, httpOptions)
+      .pipe(
+        retry(3),   // retry a failed request up to 3 times
+        catchError(this.handleError)  // then handle error
+      );
   }
 
   private handleError(error: HttpErrorResponse) {
