@@ -1,65 +1,64 @@
 {
-	"axes": [
-		{
-			"index": 1,
-			"name": "Linear",
-			"type": "linear",
-			"unit": "mm",
-			"ratio": 25,
-			"accel": 300,
-			"decel": 300,
-			"maxSpeed": 1200,
-			"motorId": "MT-2303HS28880AW-OB"
-		},
-		{
-			"index": 2,
-			"name": "Pan",
-			"type": "rotary",
-			"unit": "deg",
-			"ratio": 25,
-			"accel": 300,
-			"decel": 300,
-			"maxSpeed": 1200,
-			"motorId": "28BYGH105"
-		},
-		{
-			"index": 3,
-			"name": "Tilt",
-			"type": "rotary",
-			"unit": "deg",
-			"ratio": 25,
-			"accel": 300,
-			"decel": 300,
-			"maxSpeed": 1200,
-			"motorId": "28BYGH105"
-		}
-	],
-	"motors": [
-        {
-            "id": "MT-2303HS28880AW-OB",
-            "manufacturer": "Motech",
-            "size": "Nema23",
-            "voltage": 3.0,
-            "current": 2.8,
-            "resistance": 1.35,
-            "inductance": 3.0,
-            "torque": 123.6,
-            "inertia": 300,
-            "stepAngle": 1.8,
-            "electricalConstant": 0.086 
-        },
-        {
-            "id": "28BYGH105",
-            "manufacturer": "Wantai",
-            "size": "Nema14",
-            "voltage": 2.66,
-            "current": 0.95,
-            "resistance": 2.8,
-            "inductance": 0.8,
-            "torque": 4.2,
-            "inertia": 9,
-            "stepAngle": 1.8,
-            "electricalConstant": 0.039 
-        }
-    ]
+  "axes": [
+    {
+      "index": 1,
+      "name": "Linear",
+      "type": "linear",
+      "unit": "mm",
+      "ratio": 25,
+      "accel": 300,
+      "decel": 300,
+      "maxSpeed": 1200,
+      "motorId": "MT-2303HS28880AW-OB"
+    },
+    {
+      "index": 2,
+      "name": "Pan",
+      "type": "rotary",
+      "unit": "deg",
+      "ratio": 25,
+      "accel": 300,
+      "decel": 300,
+      "maxSpeed": 1200,
+      "motorId": "28BYGH105"
+    },
+    {
+      "index": 3,
+      "name": "Tilt",
+      "type": "rotary",
+      "unit": "deg",
+      "ratio": 25,
+      "accel": 300,
+      "decel": 300,
+      "maxSpeed": 1200,
+      "motorId": "28BYGH105"
+    }
+  ],
+  "motors": [
+    {
+      "id": "MT-2303HS28880AW-OB",
+      "manufacturer": "Motech",
+      "size": "Nema23",
+      "voltage": 3,
+      "current": 2.8,
+      "resistance": 1.35,
+      "inductance": 3,
+      "torque": 123.6,
+      "inertia": 300,
+      "electricalConstant": 0.086
+    },
+    {
+      "id": "28BYGH105",
+      "manufacturer": "Wantai",
+      "size": "Nema14",
+      "voltage": 2.66,
+      "current": 0.95,
+      "resistance": 2.8,
+      "inductance": 0.8,
+      "torque": 4.2,
+      "inertia": 9,
+      "stepAngle": 1.8,
+      "electricalConstant": 0.039
+    }
+  ]
 }

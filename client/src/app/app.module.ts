@@ -38,8 +38,8 @@ import { MotorListComponent } from './motors/motor-list/motor-list.component';
     MotorService,
     {provide: 'greeting', useValue: 'Servus!'},
     {provide: 'WEB_SOCKET_URL', useValue: 'http://localhost:3000'},
-    {provide: 'JSONDB_AXES_URL', useValue: 'http://localhost:3001/axes'},
-    {provide: 'JSONDB_MOTORS_URL', useValue: 'http://localhost:3001/motors'},
+    {provide: 'JSONDB_AXES_URL', useValue: 'http://localhost:3001/axes/'},
+    {provide: 'JSONDB_MOTORS_URL', useValue: 'http://localhost:3001/motors/'},
     {provide: 'DEBUG', useValue: false}   // activate debug information in html view
   ],
   bootstrap: [AppComponent]

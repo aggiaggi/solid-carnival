@@ -22,9 +22,8 @@ export class MotorListComponent implements OnInit {
     // Asynchronously load all motors from MotorService
     this.motorService.loadAllMotors()
       .subscribe(motors => {
-        this.motors = motors;
-        // console.log(this.toString());
-      }
+        this.motors = motors},
+        error => console.log(error)
       );
   }
 
