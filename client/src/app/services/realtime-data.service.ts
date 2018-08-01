@@ -1,6 +1,8 @@
+
+import {fromEvent as observableFromEvent} from 'rxjs';
 import { Injectable, Inject } from '@angular/core';
 import * as socketIo from 'socket.io-client';
-import { Observable } from 'rxjs/Rx'; // not 'rxjs/Observable' !!!
+import { Observable } from 'rxjs'; // not 'rxjs/Observable' !!!
 
 @Injectable()
 export class RealtimeDataService {
@@ -15,7 +17,7 @@ export class RealtimeDataService {
   }
 
   addListener(fn: Function, event: string): void {
-    Observable.fromEvent(this.socket, event)
+    observableFromEvent(this.socket, event)
       .subscribe((data) => {
         fn(data);
       });

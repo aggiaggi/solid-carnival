@@ -29,7 +29,6 @@
     "jasmine": "^3.1.0",
     "jquery": "^3.3.1",
     "rxjs": "^6.2.2",
-    "rxjs-compat": "^6.2.2",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
     "zone.js": "^0.8.26"
