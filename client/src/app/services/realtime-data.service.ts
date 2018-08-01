@@ -1,8 +1,7 @@
 
-import {fromEvent as observableFromEvent} from 'rxjs';
+import {fromEvent as observableFromEvent,  Observable } from 'rxjs';
 import { Injectable, Inject } from '@angular/core';
 import * as socketIo from 'socket.io-client';
-import { Observable } from 'rxjs'; // not 'rxjs/Observable' !!!
 
 @Injectable()
 export class RealtimeDataService {
