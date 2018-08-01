@@ -23,7 +23,7 @@ export class MotorListComponent implements OnInit {
   ngOnInit(): void {
     this.motorService.loadAllMotors()
       .subscribe((configList: MotorConfig[]) => { // subscribe to Observable returned by function
-        from(configList)  // emit each contained MotorConfig object in array as a sequence
+        from(configList)  // emit contained MotorConfig objects in array as a sequence
           .subscribe(
             config => {   // create a Motor object for each config item
               const motor: Motor = Motor.create(config);
