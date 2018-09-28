@@ -2,14 +2,14 @@
   "axes": [
     {
       "index": 1,
-      "name": "Linear",
-      "type": "linear",
-      "unit": "mm",
+      "name": "Tilt",
+      "type": "rotary",
+      "unit": "deg",
       "ratio": 25,
       "accel": 300,
       "decel": 300,
       "maxSpeed": 1200,
-      "motorId": "MT-2303HS28880AW-OB"
+      "motorId": "28BYGH105"
     },
     {
       "index": 2,
@@ -24,14 +24,14 @@
     },
     {
       "index": 3,
-      "name": "Tilt",
-      "type": "rotary",
-      "unit": "deg",
+      "name": "Linear",
+      "type": "linear",
+      "unit": "mm",
       "ratio": 25,
       "accel": 300,
       "decel": 300,
       "maxSpeed": 1200,
-      "motorId": "28BYGH105"
+      "motorId": "MT-2303HS28880AW-OB"
     }
   ],
   "motors": [
@@ -45,7 +45,7 @@
       "inductance": 3,
       "torque": 123.6,
       "inertia": 300,
-      "electricalConstant": 0.086
+      "stepAngle": 1.8
     },
     {
       "id": "28BYGH105",
@@ -57,8 +57,7 @@
       "inductance": 0.8,
       "torque": 4.2,
       "inertia": 9,
-      "stepAngle": 1.8,
-      "electricalConstant": 0.039
+      "stepAngle": 1.8
     }
   ]
 }
