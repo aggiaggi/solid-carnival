@@ -16,6 +16,7 @@ import { AxisComponent } from './axis/axis.component';
 import { EditMotorComponent } from './motors/edit-motor/edit-motor.component';
 import { ViewMotorComponent } from './motors/view-motor/view-motor.component';
 import { MotorListComponent } from './motors/motor-list/motor-list.component';
+import { LongPressDirective } from './directives/long-press.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MotorListComponent } from './motors/motor-list/motor-list.component';
     AxisComponent,
     EditMotorComponent,
     ViewMotorComponent,
-    MotorListComponent
+    MotorListComponent,
+    LongPressDirective
   ],
   imports: [
     BrowserModule,
